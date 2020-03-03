@@ -1,0 +1,12 @@
+[submodule "teaching_code"]
+	path = teaching_code
+	url = git@github.com:mfocchi/teaching_code.git
+[submodule "ros_impedance_controller"]
+	path = ros_impedance_controller
+	url = git@gitlab.advr.iit.it:dls-lab/ros_impedance_controller.git
+[submodule "hyq-description"]
+	path = hyq-description
+	url = git@gitlab.advr.iit.it:dls-lab/hyq-description.git
+[submodule "robot_control"]
+	path = robot_control
+	url = git@github.com:mfocchi/robot_control.git
