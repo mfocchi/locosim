@@ -9,4 +9,4 @@
 	url = https://github.com/iit-DLSLab/hyq-description.git
 [submodule "robot_control"]
 	path = robot_control
-	url = git@github.com:mfocchi/robot_control.git
+	url = https://github.com/mfocchi/robot_control.git
