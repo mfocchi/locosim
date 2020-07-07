@@ -59,14 +59,20 @@ sudo apt-get install ros-kinetic-joint_state_publisher
 1) gedit  ~/.bashrc
 2) copy the following lines:
 
-source $HOME/ros_ws/install/setup.bash 
 source $HOME/ros_ws/install/setup.bash
+
 export UR5_MODEL_DIR=/opt/openrobots/share/example-robot-data/robots
+
 export PATH=/opt/openrobots/bin:$PATH
+
 export PKG_CONFIG_PATH=/opt/openrobots/lib/pkgconfig:$PKG_CONFIG_PATH
+
 export LD_LIBRARY_PATH=/opt/openrobots/lib:$LD_LIBRARY_PATH
+
 export PYTHONPATH=/opt/openrobots/lib/python2.7/site-packages:$PYTHONPATH
+
 export LOCOSIM_DIR=$HOME/ros_ws/src/locosim
+
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/
 
 3) step: source ~/.bashrc
