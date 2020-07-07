@@ -35,7 +35,6 @@ sudo apt install robotpkg-py27-example-robot-data
 sudo apt-get install ros-kinetic-urdfdom-py
 sudo apt-get install robotpkg-urdfdom
 sudo apt update && sudo apt install robotpkg-py27-qt4-gepetto-viewer-corba
-sudo apt-get install robotpkg-osg-dae
 
 ###  Python
 sudo apt-get install python-matplotlib
