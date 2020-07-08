@@ -22,8 +22,14 @@ curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key 
 #### update
 sudo apt-get update
 
+(on ubuntu 16)
 sudo apt-get remove robotpkg-omniorb (omniORBpy should be on version 3 on Ubuntu 16.04 see https://github.com/humanoid-path-planner/hpp-rbprm-corba/issues/46)
 sudo apt-get install python-omniorb
+
+(on ubuntu 18)
+sudo apt-get install robotpkg-omniorb 
+
+
 sudo apt install robotpkg-pinocchio
 sudo apt install robotpkg-py27-pinocchio
 
@@ -35,12 +41,20 @@ sudo apt install robotpkg-py27-example-robot-data
 sudo apt-get install ros-kinetic-urdfdom-py
 sudo apt-get install robotpkg-urdfdom
 sudo apt update && sudo apt install robotpkg-py27-qt4-gepetto-viewer-corba
+sudo apt-get install robotpkg-osg-dae
+
 
 ###  Python
+sudo apt-get install python-scipy
 sudo apt-get install python-matplotlib
 sudo apt-get install robotpkg-py27-quadprog 
 
-### rviz
+### install ROS on ubuntu
+
+./install_ros.sh
+
+
+# rviz
 sudo apt-get install ros-kinetic-joint_state_publisher
 
 ### Setup ros workspace
