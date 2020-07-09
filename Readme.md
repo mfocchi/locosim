@@ -50,7 +50,7 @@ sudo apt-get install ros-kinetic-joint_state_publisher
 2) cd ~/ros_ws/
 3) catkin_make
 4) cd ~/ros_ws/src/ 
-5) git clone git@github.com:mfocchi/locosim.git
+5) git clone https://github.com/mfocchi/locosim.git
 6) git submodule update --init --recursive
 7) cd ~/ros_ws/ 
 8) catkin_make install  #this will create $HOME/ros_ws/install/setup.bash
