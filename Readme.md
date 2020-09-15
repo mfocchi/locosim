@@ -21,12 +21,12 @@ sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/d
 sudo apt install curl
 curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
 
-** update
 sudo apt-get update
 sudo apt install robotpkg-pinocchio
 sudo apt install robotpkg-py27-pinocchio
 
-** install robot urdfs**
+### Install robot urdfs 
+
 sudo apt-get install ros-kinetic-urdfdom-py
 sudo apt install robotpkg-py27-example-robot-data
 
@@ -35,13 +35,15 @@ sudo apt-get install python-scipy
 sudo apt-get install python-matplotlib
 sudo apt-get install robotpkg-py27-quadprog 
 
-### install ROS on ubuntu
+### Install ROS on ubuntu
 
-./install_ros.sh
+sudo apt-get install ros-kinetic-desktop-full
 
 
-### rviz
+### Rviz
 sudo apt-get install ros-kinetic-joint_state_publisher
+
+sudo apt-get install ros-kinetic-joint-state-controller 
 
 
 ### Setup ros workspace
