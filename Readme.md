@@ -25,25 +25,27 @@ sudo apt-get update
 sudo apt install robotpkg-pinocchio
 sudo apt install robotpkg-py27-pinocchio
 
+### Install ROS on ubuntu
+
+sudo apt-get install ros-kinetic-desktop-full
+
 ### Install robot urdfs 
 
 sudo apt-get install ros-kinetic-urdfdom-py
 sudo apt install robotpkg-py27-example-robot-data
-
-###  Python
-sudo apt-get install python-scipy
-sudo apt-get install python-matplotlib
-sudo apt-get install robotpkg-py27-quadprog 
-
-### Install ROS on ubuntu
-
-sudo apt-get install ros-kinetic-desktop-full
 
 
 ### Rviz
 sudo apt-get install ros-kinetic-joint_state_publisher
 
 sudo apt-get install ros-kinetic-joint-state-controller 
+
+###  Python
+
+sudo apt-get install python-scipy
+sudo apt-get install python-matplotlib
+sudo apt-get install robotpkg-py27-quadprog 
+
 
 
 ### Setup ros workspace
