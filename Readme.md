@@ -102,7 +102,13 @@ sudo apt-get install ros-kinetic-joint_state_publisher
 sudo apt-get install ros-kinetic-joint-state-controller 
 ```
 
+```
+sudo apt-get install ros-kinetic-gazebo-ros
+```
 
+```
+sudo apt-get install ros-kinetic-controller-manager
+```
 
 (ubuntu 18)
 
@@ -140,6 +146,14 @@ sudo apt-get install ros-melodic-joint_state_publisher
 
 ```
 sudo apt-get install ros-melodic-joint-state-controller 
+```
+
+```
+sudo apt-get install ros-melodic-gazebo-ros
+```
+
+```
+sudo apt-get install ros-melodic-controller-manager
 ```
 
 
