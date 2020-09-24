@@ -159,12 +159,18 @@ sudo apt-get install python-scipy
 ```
 
 ```
-sudo apt-get install python-matplotlib
+sudo apt-get install python-matplotlib=2.0.2
 ```
 
 ```
 sudo apt-get install robotpkg-py27-quadprog  
 ```
+
+```
+sudo apt-get install python-termcolor
+```
+
+
 
 ### Download code and Setup ros workspace
 
@@ -222,7 +228,7 @@ git submodule update --init --recursive
 gedit  ~/.bashrc
 ```
 
-copy the following lines at the end:
+copy the following lines (at the end of the .bashrc!):
 
 ```
 source $HOME/ros_ws/install/setup.bash
