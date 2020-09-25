@@ -52,108 +52,62 @@ sudo apt install robotpkg-py27-pinocchio
 
 ### Install ROS 
 
-setup your source list
+setup your source list:
 
 ```
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 ```
 
-Set up your keys
+Set up your keys:
 
 ```
 curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -
 ```
 
-(ubuntu 16)
-
 ```
-sudo apt-get install ros-kinetic-desktop-full
+sudo apt-get install ros-$(rosversion -d)-desktop-full
 ```
 
-```
-sudo apt-get install ros-kinetic-urdfdom-py
-```
+install packages:
 
 ```
-sudo apt-get install ros-kinetic-joint_state_publisher
+sudo apt-get install ros-$(rosversion -d)-urdfdom-py
 ```
 
 ```
-sudo apt-get install ros-kinetic-joint-state-controller 
+sudo apt-get install ros-$(rosversion -d)-joint_state_publisher
 ```
 
 ```
-sudo apt-get install ros-kinetic-rviz-visual-tools
+sudo apt-get install ros-$(rosversion -d)-joint-state-controller 
 ```
 
 ```
-sudo apt-get install ros-kinetic-gazebo-msgs
+sudo apt-get install ros-$(rosversion -d)-rviz-visual-tools
 ```
 
 ```
-sudo apt-get install ros-kinetic-control-toolbox
+sudo apt-get install ros-$(rosversion -d)-gazebo-msgs
 ```
 
 ```
-sudo apt-get install ros-kinetic-joint_state_publisher
+sudo apt-get install ros-$(rosversion -d)-control-toolbox
 ```
 
 ```
-sudo apt-get install ros-kinetic-joint-state-controller 
+sudo apt-get install ros-$(rosversion -d)-joint_state_publisher
 ```
 
 ```
-sudo apt-get install ros-kinetic-gazebo-ros
+sudo apt-get install ros-$(rosversion -d)-joint-state-controller 
 ```
 
 ```
-sudo apt-get install ros-kinetic-controller-manager
-```
-
-(ubuntu 18)
-
-```
-sudo apt-get install ros-melodic-desktop-full
+sudo apt-get install ros-$(rosversion -d)-gazebo-ros
 ```
 
 ```
-sudo apt-get install ros-melodic-urdfdom-py
-```
-
-```
-sudo apt-get install ros-melodic-joint_state_publisher
-```
-
-```
-sudo apt-get install ros-melodic-joint-state-controller 
-```
-
-```
-sudo apt-get install ros-melodic-rviz-visual-tools
-```
-
-```
-sudo apt-get install ros-melodic-gazebo-msgs
-```
-
-```
-sudo apt-get install ros-melodic-control-toolbox
-```
-
-```
-sudo apt-get install ros-melodic-joint_state_publisher
-```
-
-```
-sudo apt-get install ros-melodic-joint-state-controller 
-```
-
-```
-sudo apt-get install ros-melodic-gazebo-ros
-```
-
-```
-sudo apt-get install ros-melodic-controller-manager
+sudo apt-get install ros-$(rosversion -d)-controller-manager
 ```
 
 
