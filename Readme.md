@@ -154,10 +154,10 @@ cd ~/ros_ws/src
 catkin_init_workspace
 ```
 
-This will create ""/opt/ros/kinetic/setup.bash" that you add to your .bashrc with the following:
+This will create ""/opt/ros/$(rosversion -d)/setup.bash" that you add to your .bashrc with the following:
 
 ```
-echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/$(rosversion -d)/setup.bash" >> ~/.bashrc
 ```
 
 ```
