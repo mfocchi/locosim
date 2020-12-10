@@ -41,11 +41,11 @@ sudo apt-get update
 ```
 
 ```
-sudo apt install robotpkg-pinocchio
+sudo apt install robotpkg-py27-pinocchio=2.4.7
 ```
 
 ```
-sudo apt install robotpkg-py27-pinocchio
+sudo apt install robotpkg-py27-eigenpy=2.4.3
 ```
 
 
@@ -92,14 +92,6 @@ sudo apt-get install ros-$(rosversion -d)-gazebo-msgs
 
 ```
 sudo apt-get install ros-$(rosversion -d)-control-toolbox
-```
-
-```
-sudo apt-get install ros-$(rosversion -d)-joint_state_publisher
-```
-
-```
-sudo apt-get install ros-$(rosversion -d)-joint-state-controller 
 ```
 
 ```
