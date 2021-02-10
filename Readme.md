@@ -1,5 +1,13 @@
 
 
+
+
+# Usage with a Virtual Machine
+
+Download the following [virtual machine](www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_descriptions**
+
+
+
 # Install on Ubuntu 16 / Ubuntu 18
 
 ## Install Spyder python IDE
