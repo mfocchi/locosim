@@ -49,11 +49,11 @@ sudo apt-get update
 ```
 
 ```
-sudo apt install robotpkg-py27-pinocchio=2.4.7
+sudo apt install robotpkg-py27-eigenpy	
 ```
 
 ```
-sudo apt install robotpkg-py27-eigenpy=2.4.3
+sudo apt install robotpkg-py27-pinocchio
 ```
 
 
