@@ -72,8 +72,10 @@ Set up your keys:
 curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -
 ```
 
+Find which ROS version (e.g. "kinetic") is compatible with your Ubuntu version (check here http://wiki.ros.org/Distributions) and replace in ROSVERSION string in the the following command:
+
 ```
-sudo apt-get install ros-$(rosversion -d)-desktop-full
+sudo apt-get install ros-ROSVERSION-desktop-full
 ```
 
 install packages:
