@@ -21,7 +21,7 @@ class RosPub():
             #launch rviz node if not yet done will start roscore too
             uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
             roslaunch.configure_logging(uuid)
-            self.launch = roslaunch.parent.ROSLaunchParent(uuid, [os.environ['LOCOSIM_DIR'] + "/robot_control/visualize.launch"])
+            self.launch = roslaunch.parent.ROSLaunchParent(uuid, [os.environ['LOCOSIM_DIR'] + "/visualize_ur/launch/visualize_ur4.launch"])
             self.launch.start()                                                    
             ros.loginfo("RVIZ started")
             tm.sleep(1.0)
@@ -46,7 +46,7 @@ class RosPub():
         all_names = [name for name in robot.model.names]            
         msg = JointState()
         msg.header.stamp = ros.Time.now()            
-        msg.name = all_names[-6:] #remove universe joint that is not active
+        msg.name = all_names[-4:] #remove universe joint that is not active
         msg.position = q                
         msg.velocity = qd                
         msg.effort = tau              

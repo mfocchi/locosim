@@ -7,7 +7,7 @@
 
      <param name="/rosout/omit_topics" value="true"/>
      <!-- send the robot XML to param server -->
-     <param name="robot_description" command="$(find xacro)/xacro.py '$(env UR5_MODEL_DIR)/ur_description/urdf/ur4_robot.urdf'" />    
+     <param name="robot_description" command="$(find xacro)/xacro.py '$(env LOCOSIM_DIR)/visualize_ur/ur4_description/ur4_robot.urdf'" />    
      
      <!-- joint_state_publisher publish joint states from sliders-->
      <group if="$(arg test_joints)">

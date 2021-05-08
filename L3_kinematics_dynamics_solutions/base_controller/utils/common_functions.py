@@ -36,8 +36,8 @@ def getRobotModel4():
     
     # Import the model
     ERROR_MSG = 'You should set the environment variable UR5_MODEL_DIR to something like "$DEVEL_DIR/install/share"\n';
-    path      = os.environ.get('UR5_MODEL_DIR', ERROR_MSG)
-    urdf      = path + "/ur_description/urdf/ur4_robot.urdf";
+    path      = os.environ.get('LOCOSIM_DIR', ERROR_MSG)
+    urdf      = path + "/visualize_ur/ur4_description/ur4_robot.urdf";
     srdf      = path + '/ur_description/srdf/ur_gripper.srdf'
     robot = RobotWrapper.BuildFromURDF(urdf, [path,srdf ])
                                      
@@ -77,7 +77,7 @@ def plotJoint(name, figure_id, time_log, q_log, q_des_log, qd_log, qd_des_log, q
     labels_ur = ["1 - Shoulder Pan", "2 - Shoulder Lift","3 - Elbow","4 - Wrist 1","5 - Wrist 2","6 - Wrist 3"]
     labels_hyq = ["LF_HAA", "LF_HFE","LF_KFE","RF_HAA", "RF_HFE","RF_KFE","LH_HAA", "LH_HFE","LH_KFE","RH_HAA", "RH_HFE","RH_KFE"]
 
-    if njoints == 6:
+    if njoints == 4:
         labels = labels_ur 		
     if njoints == 12:
         labels = labels_hyq 	             
