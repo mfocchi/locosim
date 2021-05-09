@@ -1,4 +1,4 @@
-#common stuff 
+# common system wide functions
 import pinocchio as pin
 from pinocchio.utils import *
 import numpy as np
@@ -6,8 +6,11 @@ from numpy import nan
 import math
 import time as tm
 
+# utilities useful for ros communication and instatiation
 from base_controller.utils.common_functions import *
 from base_controller.utils.ros_publish_ur4 import RosPub
+
+# derived kinematics-related functions
 from base_controller.utils.kin_dyn_utils import directKinematics as dk
 from base_controller.utils.kin_dyn_utils import computeEndEffectorJacobian as eeJ
 from base_controller.utils.kin_dyn_utils import numericalInverseKinematics as ik
