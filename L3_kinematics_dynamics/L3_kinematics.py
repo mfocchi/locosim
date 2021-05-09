@@ -110,7 +110,7 @@ while np.count_nonzero(q - q_f) :
     # stops the while loop if  you prematurely hit CTRL+C                    
     if ros_pub.isShuttingDown():
         print ("Shutting Down")                    
-        break;
+        break
 
 raw_input("Final position reached. Press Enter to continue and plot results")
 ros_pub.deregister_node()  
