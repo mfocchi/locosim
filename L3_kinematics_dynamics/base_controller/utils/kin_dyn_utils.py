@@ -79,7 +79,8 @@ def directKinematics(q):
     # type your computation of the direct kinematics here
 
     # global homogeneous transformation matrices
-    T_01= np.array([[],[],[],]])
+
+    T_01 = np.array([[],[],[],[]])
     T_02 = np.array([[],[],[],[]])
     T_03 = np.array([[],[],[],[]])
     T_04 = np.array([[],[],[],[]])
