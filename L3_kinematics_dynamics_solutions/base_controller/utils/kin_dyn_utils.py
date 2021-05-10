@@ -21,7 +21,7 @@ def setRobotParameters():
     l5 = 0.39225
     l6 = 0.094
     l7 = 0.068  
-    link_lengths = np.array([l1, l2, l3, l4, l5, l6, l7])
+    lengths = np.array([l1, l2, l3, l4, l5, l6, l7])
 
     m0 = 4
     m1 = 3.7
@@ -30,8 +30,17 @@ def setRobotParameters():
     m4 = 1.219
 
     link_masses = np.array([m0, m1, m2, m3, m4])
+    
+    # com of the links expressed in the respective link frame
+    # com_link =  model.inertias[idx].lever		
+    com0 = np.array([0., 0., 0.]) # base link
+    com1 = np.array([0., 0., 0.]) #shoulder link
+    com2 = np.array([0.  , 0.  , 0.28]) #upper_arm_link
+    com3 = np.array([0.  , 0.  , 0.25]) #forearm_link
+    com4 = np.array([0., 0., 0.]) #wrist_1_link
+    #w_com_link = data.oMi[idx].rotation.dot(com_link) + data.oMi[idx].translation
 
-    # inertia tensors w.r.t. to own CoM of each link
+    # inertia tensors of the links  w.r.t. to own CoM of each link expressed in the respective link frames
     I_0 = np.array([[0.00443333156,           0.0,    0.0],
                     [          0.0, 0.00443333156,    0.0],
                     [          0.0,           0.0, 0.0072]])
@@ -54,14 +63,15 @@ def setRobotParameters():
 
     inertia_tensors = np.array([I_0, I_1, I_2, I_3, I_4])
 
+    coms = np.array([com0, com1, com2, com3, com4])
 
-    return link_lengths, inertia_tensors, link_masses
+    return lengths, inertia_tensors, link_masses, coms
 
 
 def directKinematics(q):
 
     # define link lengths from urdf
-    link_length,_,_ = setRobotParameters()
+    link_length,_,_,_ = setRobotParameters()
     l1 = link_length[0]
     l2 = link_length[1]
     l3 = link_length[2]
@@ -153,16 +163,21 @@ def computeEndEffectorJacobian(q):
     J_p = np.array([np.cross(z1,p_0_1e), np.cross(z2,p_0_2e), np.cross(z3,p_0_3e), np.cross(z4,p_0_4e)])
     J_o = np.array([z1, z2, z3, z4])
 
-    # Jacobian matrix
+    # Jacobian matrix and joint axes both expressed in the world frame) 
     J = np.vstack((np.transpose(J_p),np.transpose(J_o)))
 
     return J,z1,z2,z3,z4
 
 def rot2eul(R):
-    beta = -np.arcsin(R[2,0])
-    alpha = np.arctan2(R[2,1]/np.cos(beta),R[2,2]/np.cos(beta))
-    gamma = np.arctan2(R[1,0]/np.cos(beta),R[0,0]/np.cos(beta))
-    return np.array((alpha, beta, gamma))
+    phi = np.arctan2(R[1,0], R[0,0])
+    theta = np.arctan2(-R[2,0], np.sqrt(pow(R[2,1],2) + pow(R[2,2],2) ))
+    psi = np.arctan2(R[2,1], R[2,2])
+   
+    #unit test should return roll = 0.5 pitch = 0.2  yaw = 0.3
+    # rot2eul(np.array([ [0.9363,   -0.1684,    0.3082], [0.2896 ,   0.8665  , -0.4065], [-0.1987 ,   0.4699  ,  0.8601]]))    
+    
+    # returns roll = psi, pitch = theta,  yaw = phi
+    return np.array((psi, theta, phi))
 
 def geometric2analyticJacobian(J,T_0e):
     R = T_0e[:3,:3]
@@ -290,11 +305,20 @@ def fifthOrderPolynomialTrajectory(tf,q0,qf):
 def RNEA(g0,q,qd,qdd):
 
     # setting values of inertia tensors w.r.t. to their CoMs from urdf and link masses
-    _, tensors, m = setRobotParameters()
-    I_1 = tensors[1]
-    I_2 = tensors[2]
-    I_3 = tensors[3]
-    I_4 = tensors[4]
+    _, tensors, m, coms = setRobotParameters()
+
+    # get inertia tensors about the com expressed in the respective link frame    
+    c_I_1 = tensors[1]
+    c_I_2 = tensors[2]
+    c_I_3 = tensors[3]
+    c_I_4 = tensors[4]
+    
+    # get positions of the link com expressed in the respective link frame    
+    c_com_0 = coms[0]    
+    c_com_1 = coms[1]    
+    c_com_2 = coms[2]    
+    c_com_3 = coms[3]    
+    c_com_4 = coms[4]
 
     # initializing variables
     n = len(q)
@@ -303,6 +327,7 @@ def RNEA(g0,q,qd,qdd):
     v = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
     omega_dot = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
     a = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
+    vc = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
     ac = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
 
     F = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
@@ -310,19 +335,23 @@ def RNEA(g0,q,qd,qdd):
 
     tau = np.array([0.0, 0.0, 0.0, 0.0])
 
-    # obtaining z vectors required in the computation of the velocities and accelerations
+    # obtaining joint axes vectors required in the computation of the velocities and accelerations (expressed in the world frame)
     _,z1,z2,z3,z4 = computeEndEffectorJacobian(q)
     z = np.array([z1,z2,z3,z4])
-
+   
+    print z
     # global homogeneous transformation matrices
     T_01, T_02, T_03, T_04, T_0e = directKinematics(q)
 
     # link positions w.r.t. the world
+    p_00 = np.array([0.0,0.0,0.0])
     p_01 = T_01[:3,3]
     p_02 = T_02[:3,3]
     p_03 = T_03[:3,3]
     p_04 = T_04[:3,3]
     p_0e = T_0e[:3,3]
+    
+    
 
     # rotation matrices w.r.t. to the world of each link
     R_01 = T_01[:3,:3]
@@ -330,52 +359,53 @@ def RNEA(g0,q,qd,qdd):
     R_03 = T_03[:3,:3]
     R_04 = T_04[:3,:3]
 
-    # positions of the CoMs w.r.t. to the world
-    pc_1 = p_01
-    pc_2 = p_02 + np.dot(R_02, np.array([0.0, 0.0, 0.28]))
-    pc_3 = p_03 + np.dot(R_03, np.array([0.0, 0.0, 0.25]))
-    pc_4 = p_04
+    # positions of the CoMs w.r.t. to the world frame
+    pc_0 = p_00 + c_com_0
+    pc_1 = p_01 + np.dot(R_01, c_com_1)
+    pc_2 = p_02 + np.dot(R_02, c_com_2)
+    pc_3 = p_03 + np.dot(R_03, c_com_3)
+    pc_4 = p_04 + np.dot(R_04, c_com_4) 
     pc_e = p_0e
 
     # array used in the recursion
-    p = np.array([p_01, p_02, p_03, p_04, p_0e])
-    pc = np.array([pc_1, pc_2, pc_3, pc_4, pc_e])
+    p = np.array([p_00, p_01, p_02, p_03, p_04, p_0e])
+    pc = np.array([pc_0, pc_1, pc_2, pc_3, pc_4, pc_e])
 
-    # gravity vector acting on link 1 expressed in frame 1
-    g = np.dot(R_01,np.array([0.0, 0.0, -g0]))
+
     
-    # expressing tensors of inertia w.r.t. world frame (time consuming)
-    I_1 = np.dot(np.dot(R_01,I_1),R_01.T)
-    I_2 = np.dot(np.dot(R_02,I_2),R_02.T)
-    I_3 = np.dot(np.dot(R_03,I_3),R_03.T)
-    I_4 = np.dot(np.dot(R_04,I_4),R_04.T)
+    # expressing tensors of inertia of the links (about the com) in the world frame (time consuming)
+    I_1 = np.dot(np.dot(R_01,c_I_1),R_01.T)
+    I_2 = np.dot(np.dot(R_02,c_I_2),R_02.T)
+    I_3 = np.dot(np.dot(R_03,c_I_3),R_03.T)
+    I_4 = np.dot(np.dot(R_04,c_I_4),R_04.T)
     I = np.array([I_1, I_2, I_3, I_4])
 
     # forward pass: compute accelerations from 0 to ee
     for i in range(n):
 
-        if i == 0:
-            p_ = p[i]
-
-            omega[i] = qd[i]*z[i]
-            v[i] = 0
-
-            omega_dot[i] = qdd[i]*z[i] + qd[i]*np.cross(omega[i],z[i])
-            a[i] = -g
+        if i == 0: # we start from base link 0
+            p_ = p[0]            
+            #base frame is still (not true for a legged robot!)
+            omega[0] = 0
+            v[0] = 0 
+            omega_dot[0] = 0
+            a[0] = -g0 # acceleration of the base is just gravity so we remove it from Netwon equations
             
         else:
-            p_ = p[i] - p[i-1]
-
+            p_ = p[i] - p[i-1] #p_i-1,i
             omega[i] = omega[i-1] + qd[i]*z[i]
-            omega_dot[i] = omega_dot[i-1] + qdd[i]*z[i] + qd[i]*np.cross(omega[i],z[i])
+            omega_dot[i] = omega_dot[i-1] + qdd[i]*z[i] + qd[i]*np.cross(omega[i-1],z[i])
 
             v[i] = v[i-1] + np.cross(omega[i-1],p_)
             a[i] = a[i-1] + np.cross(omega_dot[i-1],p_) + np.cross(omega[i-1],np.cross(omega[i-1],p_))
 
-        pc_ = pc[i] - p[i]
+        pc_ = pc[i] - p[i] # p_i,c
+        
+        #compute com quantities
+        vc[i] = v[i] + np.cross(omega[i],p_)
         ac[i] = a[i] + np.cross(omega_dot[i],pc_) + np.cross(omega[i],np.cross(omega[i],pc_))
 
-    # backward pass: compute forces and moments from ee to 1
+    # backward pass: compute forces and moments from ee to 1 TODO CHECK FROM HERE
     for i in range(n-1,-1,-1):
         if i == 0:
             p_ = p[i]            
@@ -406,7 +436,7 @@ def getg(q,robot):
 #    print "AAA"
 #    g = pin.rnea(robot.model, robot.data, q,qd ,qdd)
 #    print g
-    g = RNEA(9.81,q,qd,qdd)
+    g = RNEA(np.array([0.0, 0.0, -9.81]),q,qd,qdd)
    
 #    print g
     return g
@@ -423,7 +453,7 @@ def getM(q,robot):
 #        print "AAA"
 #        taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]),ei)
 #        print taup
-        taup = RNEA(9.81, q, np.array([0.0, 0.0, 0.0, 0.0]),ei)
+        taup = RNEA(np.array([0.0, 0.0, -9.81]), q, np.array([0.0, 0.0, 0.0, 0.0]),ei)
 #        print taup
         M[:4,i] = taup - g
    
@@ -437,7 +467,7 @@ def getC(q,qd,robot):
 #    print "AAA"
 #    C = pin.rnea(robot.model, robot.data,q,qd,qdd) - g
 #    print C
-    C = RNEA(0.0, q, qd, np.array([0.0, 0.0, 0.0, 0.0]))
+    C = RNEA(np.array([0.0, 0.0, 0.0]), q, qd, np.array([0.0, 0.0, 0.0, 0.0]))
 #    print C
     
     return C      
