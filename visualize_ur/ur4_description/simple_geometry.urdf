@@ -21,12 +21,17 @@
                 <box size="0.25 0.25 0.1" />
             </geometry>
         </collision>
+ 	<inertial>
+		<mass value="10"/>
+		<origin xyz="0.0 0.0 0.0"/>
+		<inertia ixx="1.0" iyy="1.0" izz="1.0" ixy="0.0" ixz="0.0" iyz="0.0"/>
+	</inertial>
     </link>
 
     <joint name="shoulder_pan_joint" type="revolute">
         <parent link="base_link"/>
         <child link="shoulder_link"/>
-        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.089159"/>
+        <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.1"/>
         <axis xyz="0 0 1"/>
         <limit effort="150.0" lower="-3.14159265" upper="3.14159265" velocity="3.15"/>
         <dynamics damping="0.0" friction="0.0"/>
@@ -35,12 +40,12 @@
     <link name="shoulder_link">
         <visual>
             <geometry>
-                <cylinder radius="0.15" length="0.06"/>
+                <cylinder radius="0.15" length="0.1"/>
             </geometry>
         </visual>
         <collision>
             <geometry>
-                <cylinder radius="0.15" length="0.06"/>
+                <cylinder radius="0.15" length="0.1"/>
             </geometry>
         </collision>
         <inertial>
