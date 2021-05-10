@@ -9,8 +9,11 @@ import time as tm
 import os
 from base_controller.utils.common_functions import *
 from base_controller.utils.ros_publish_ur4 import RosPub
+from base_controller.utils.kin_dyn_utils import RNEA 
 from base_controller.utils.kin_dyn_utils import getM
 from base_controller.utils.kin_dyn_utils import getg
+from base_controller.utils.kin_dyn_utils import getC
+
 
 import L3_conf as conf
 
@@ -35,6 +38,10 @@ f_log = np.empty((3,0))*nan
 x_log = np.empty((3,0))*nan
 time_log =  np.empty((0,0))*nan
 
+# M_log = np.empty((4,4))*nan
+# g_log = np.empty ((4,1))*nan
+# C_log = np.empty((4,1))*nan 
+
 q = conf.q0
 qd = conf.qd0
 qdd = conf.qdd0
@@ -52,31 +59,40 @@ error = np.array([1, 1, 1, 1])
 # Main loop to simulate dynamics
 while any(i >= 0.01 for i in np.abs(error)):
        
- 
-    # Decimate print of time
-    #if (divmod(time ,1.0)[1]  == 0):
-       #print('Time %.3f s'%(time))
-    # if time >= conf.exp_duration:
-    #     break
-                            
+    # initialize Pinocchio variables
     robot.computeAllTerms(q, qd) 
-    # joint space inertia matrix                
-    M = robot.mass(q, False)
 
-    # M_ = getM(q)
+    # # Exercise 3.1
+    # # compute RNEA with Pinocchio
+    # taup = pin.rnea(robot.model, robot.data, q, qd, qdd) 
+
+    # # compute RNEA with your function
+    # tau_ = RNEA(9.81,q,qd,qdd)
+
+    # print taup - tau_
 
     g = robot.gravity(q)
-    # M_new = np.zeros((4,4))
-    # for i in range(4):
-    #     ei = np.array([0.0, 0.0, 0.0, 0.0])
-    #     ei[i] = 1
-    #     taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]) ,ei)
-    #     M_new[:4,i] = taup	- g
+    # #gravity terms               
+    g_ = getg(q,robot)
 
-    # # bias terms                
+    # Exercise 3.2
+    # compute joint space inertia matrix with Pinocchio                
+    M = robot.mass(q, False)
+    M_ = getM(q,robot)
+
+    # compute joint space intertia matrix with built-in pinocchio rnea
+    M_new = np.zeros((4,4))
+    for i in range(4):
+        ei = np.array([0.0, 0.0, 0.0, 0.0])
+        ei[i] = 1
+        taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]) ,ei)
+        M_new[:4,i] = taup - g
+
+    
+    
+    # # # bias terms                
     h = robot.nle(q, qd, False)
-    #gravity terms               
-    # g_ = getg(9.81,q)
+    C = getC(q,qd,robot)    
 
     damping =  - 0.5*qd
 
@@ -103,12 +119,15 @@ while any(i >= 0.01 for i in np.abs(error)):
     qd_des_log= np.vstack((qd_des_log, qd_des))
     qdd_log= np.vstack((qdd_log, qd))
     qdd_des_log= np.vstack((qdd_des_log, qdd_des))
-    # tau_log = np.vstack((tau_log, tau))            
+
+    # M_log = np.dstack((M_log, M))     
+    # C_log = np.dstack((C_log, C)) 
+    # g_log = np.dtack((g_log, g)) 
  
     # update time
     time = time + conf.dt         
 
-    error = qd_des - qd     
+   
                 
     #publish joint variables
     ros_pub.publish(robot, q, qd,damping)                   
@@ -122,15 +141,15 @@ while any(i >= 0.01 for i in np.abs(error)):
 raw_input("Robot came to a stop. Press Enter to continue")
 ros_pub.deregister_node()
         
-                 
-                
-# plot joint variables                                                                              
-plotJoint('position', 0, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
-# plotJoint('velocity', 1, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
-# plotJoint('acceleration', 2, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
-#plotJoint('torque', 3, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
 
-raw_input("Press Enter to continue")
+                
+# # plot joint variables                                                                              
+# plotJoint('position', 0, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
+# # plotJoint('velocity', 1, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
+# # plotJoint('acceleration', 2, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
+# #plotJoint('torque', 3, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
+
+# raw_input("Press Enter to continue")
 
 
 

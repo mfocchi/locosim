@@ -22,18 +22,6 @@ q0 =   np.array([math.pi, -math.pi/8,  -math.pi/6, 0.0])
 qd0 =  np.array([    0.0, 0.0, 0.0, 0.0])
 qdd0 = np.array([    0.0, 0.0, 0.0, 0.0]) 
 
-#UR4 robot parameters
-l1 = 0.089159
-l2 = 0.13585
-l3 = 0.425
-l4 = 0.1197
-l5 = 0.39225
-l6 = 0.094
-l7 = 0.068  
-urdf90degrees = 1.570796325
-
-parameters = np.array([l1, l2, l3, l4, l5, l6, l7, urdf90degrees])
-
 
 
 

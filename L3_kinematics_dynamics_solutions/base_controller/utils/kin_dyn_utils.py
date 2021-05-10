@@ -8,6 +8,8 @@ Created on May 4 2021
 import numpy as np
 import os
 import math
+import pinocchio as pin
+from pinocchio.utils import *
 
 def setRobotParameters():
 
@@ -20,6 +22,14 @@ def setRobotParameters():
     l6 = 0.094
     l7 = 0.068  
     link_lengths = np.array([l1, l2, l3, l4, l5, l6, l7])
+
+    m0 = 4
+    m1 = 3.7
+    m2 = 8.393
+    m3 = 2.275
+    m4 = 1.219
+
+    link_masses = np.array([m0, m1, m2, m3, m4])
 
     # inertia tensors w.r.t. to own CoM of each link
     I_0 = np.array([[0.00443333156,           0.0,    0.0],
@@ -44,13 +54,6 @@ def setRobotParameters():
 
     inertia_tensors = np.array([I_0, I_1, I_2, I_3, I_4])
 
-    m0 = 4
-    m1 = 3.7
-    m2 = 8.393
-    m3 = 2.275
-    m4 = 1.219
-
-    link_masses = np.array([m0, m1, m2, m3, m4])
 
     return link_lengths, inertia_tensors, link_masses
 
@@ -180,10 +183,12 @@ def numericalInverseKinematics(p,q0):
 
     epsilon = 0.000001
     alpha = 0.1
-    gamma = 0.01
+    gamma = 0.1
+    e_bar1 = 1
     e_bar = 1
-    lambda_ = 0.0001
-    max_iter = 1000
+    lambda_ = 0.0000001
+    beta = 0.5
+    max_iter = 10000
     iter = 0
     q_init = q0
 
@@ -209,14 +214,58 @@ def numericalInverseKinematics(p,q0):
         q0 = q1
         iter += 1
 
+    # while np.linalg.norm(e_bar) >= epsilon and iter < max_iter:
+        
+    #     J,_,_,_,_ = computeEndEffectorJacobian(q0)
+    #     _, _, _, _, T_0e = directKinematics(q0)
+
+    #     p_e = T_0e[:3,3]
+    #     R = T_0e[:3,:3]
+    #     rpy = rot2eul(R)
+    #     roll = rpy[0]
+    #     p_e = np.append(p_e,roll)
+    #     e_bar = p_e - p
+
+    #     J_bar = geometric2analyticJacobian(J,T_0e)
+    #     J_bar = J_bar[:4,:]
+    #     JtJ= np.dot(J_bar.T,J_bar) + np.identity(J_bar.shape[1])*lambda_
+    #     JtJ_inv = np.linalg.inv(JtJ)
+    #     P = JtJ_inv.dot(J_bar.T)
+    #     dq = -P.dot(e_bar)
+    #     q1 = q0 + dq*alpha
+
+    #     _, _, _, _, T_0e1 = directKinematics(q1)
+    #     p_e1 = T_0e1[:3,3]
+    #     R1 = T_0e1[:3,:3]
+    #     rpy1 = rot2eul(R1)
+    #     roll1 = rpy1[0]
+    #     p_e1 = np.append(p_e1,roll1)
+    #     e_bar1 = p_e1 - p_e
+
+    #     e_bar_check = -np.linalg.norm(e_bar) + np.linalg.norm(e_bar1)
+    #     threshold = gamma*alpha*np.linalg.norm(e_bar)
+
+    #     if e_bar_check >= threshold:
+    #         alpha = beta*alpha
+    #         print alpha
+
+    #     q0 = q1
+    #     iter += 1
+
     if iter >= max_iter:
         print("Maximum number of iterations reached no solution was found")
         q0 = q1
     else:
         print("Inverse kinematics solved in {} iterations".format(iter))
         
-    # unwrapping function prevents from outputs larger than 2pi
-    return np.unwrap(q0)
+    # unwrapping prevents from outputs larger than 2pi
+    for i in range(len(q0)):
+        while q0[i] >= 2*math.pi:
+            q0[i] -= 2*math.pi 
+        while q0[i] < -2*math.pi:
+            q0[i] += 2*math.pi 
+
+    return q0
 
 
 
@@ -267,7 +316,7 @@ def RNEA(g0,q,qd,qdd):
     # global homogeneous transformation matrices
     T_01, T_02, T_03, T_04, T_0e = directKinematics(q)
 
-    # link positions w.r.t. t the world
+    # link positions w.r.t. the world
     p_01 = T_01[:3,3]
     p_02 = T_02[:3,3]
     p_03 = T_03[:3,3]
@@ -349,24 +398,31 @@ def RNEA(g0,q,qd,qdd):
 
     return tau
 
+# computation of gravity terms
+def getg(q,robot):
+    qd = np.array([0.0, 0.0, 0.0, 0.0])
+    qdd = np.array([0.0, 0.0, 0.0, 0.0])
+    g = pin.rnea(robot.model, robot.data, q,qd ,qdd)
+    return g
+
+
 # computation of generalized mass matrix
-def getM(q):
+def getM(q,robot):
+    g = getg(q,robot)
     n = len(q)
     M = np.zeros((n,n))
-    qd = np.array([0.0, 0.0, 0.0, 0.0])
     for i in range(n):
         ei = np.array([0.0, 0.0, 0.0, 0.0])
         ei[i] = 1
-        M[:n,i] = RNEA(0, q, qd, ei)
+        taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]),ei)
+        M[:4,i] = taup - g
     return M
 
-# computation of gravity terms
-def getg(g0,q):
-    qd = np.array([0.0, 0.0, 0.0, 0.0])
+def getC(q,qd,robot):
+    g = getg(q,robot)
     qdd = np.array([0.0, 0.0, 0.0, 0.0])
-    g = RNEA(g0,q, qd, qdd)
-    return g
-        
+    C = pin.rnea(robot.model, robot.data,q,qd,qdd) - g
+    return C      
 
     
 
