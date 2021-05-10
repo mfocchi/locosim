@@ -83,7 +83,8 @@ J_r = g2a(J, T_0e)
 
 # desired task space position
 p = np.array([-0.5, -0.2, 0.5, math.pi/3])
-# p = np.array([2, -0.2, 0.5, math.pi]) # not solvable, outside of workspace
+# outside of workspace, gets the solution with minumum error
+#p = np.array([-2.5, -0.2, 0.5, math.pi/3])
 
 # initial value for numerical ik
 #q_i  = np.array([ 0.5, -1.0, -0.8, -math.pi]) # good initialization
