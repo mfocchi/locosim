@@ -284,19 +284,6 @@
     </actuator>
   </transmission>
 
-  <!-- nothing to do here at the moment -->
-  <!-- ROS base_link to UR 'Base' Coordinates transform -->
-  <link name="base"/>
-  <joint name="base_link-base_fixed_joint" type="fixed">
-    <!-- NOTE: this rotation is only needed as long as base_link itself is
-                 not corrected wrt the real robot (ie: rotated over 180
-                 degrees)
-      -->
-    <origin rpy="0 0 -3.14159265" xyz="0 0 0"/>
-    <parent link="base_link"/>
-    <child link="base"/>
-  </joint>
-
 
 
 

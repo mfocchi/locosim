@@ -48,11 +48,12 @@ qdd_des = conf.qdd0
 # get the ID corresponding to the frame we want to control
 assert(robot.model.existFrame(conf.frame_name))
 frame_ee = robot.model.getFrameId(conf.frame_name)
-
+#################
 # exercise 2.1
+#################
 # direct kinematics function
 T_01, T_02, T_03, T_04, T_0e = dk(q)
-# compare with Pinocchio
+# compare with Pinocchio built-in functions 
 robot.computeAllTerms(q, qd)
 x = robot.framePlacement(q, frame_ee).translation
 o = robot.framePlacement(q, frame_ee).rotation
@@ -61,22 +62,31 @@ rotation_diff = o - T_0e[:3,:3]
 print position_diff
 print rotation_diff
 
+
+#################
 # exercise 2.2
+#################
 J,z1,z2,z3,z4 = eeJ(q)
 # compare with Pinocchio      
-J6 = robot.frameJacobian(q, frame_ee, False, pin.ReferenceFrame.LOCAL_WORLD_ALIGNED)  
-jacobian_diff = J - J6
+Jee = robot.frameJacobian(q, frame_ee, False, pin.ReferenceFrame.LOCAL_WORLD_ALIGNED)  
+jacobian_diff = J - Jee
 print jacobian_diff
 
+##################
 # exercise 2.3
+##################
 J_r = g2a(J, T_0e)
 
+###################
 # exercise 2.4
+###################
+
 # desired task space position
 p = np.array([-0.5, -0.2, 0.5, math.pi/3])
 # p = np.array([2, -0.2, 0.5, math.pi]) # not solvable, outside of workspace
+
 # initial value for numerical ik
-# q_i  = np.array([ 0.5, -1.0, -0.8, -math.pi]) # good initialization
+#q_i  = np.array([ 0.5, -1.0, -0.8, -math.pi]) # good initialization
 q_i  = np.array([ -5, 5.0, -0.8, -math.pi]) # bad initialization
 # solution of the numerical ik
 q_f = ik(p,q_i) 
@@ -89,6 +99,9 @@ print task_diff
 print "qf"
 print q_f
     
+###################
+# exercise 2.5
+###################    
 while np.count_nonzero(q - q_f) :          
 
     # Polynomial trajectory

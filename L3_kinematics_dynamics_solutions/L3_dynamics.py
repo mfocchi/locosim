@@ -62,7 +62,10 @@ while any(i >= 0.01 for i in np.abs(error)):
     # initialize Pinocchio variables
     robot.computeAllTerms(q, qd) 
 
+    #######################
     # # Exercise 3.1
+    #######################
+
     # # compute RNEA with Pinocchio
     # taup = pin.rnea(robot.model, robot.data, q, qd, qdd) 
 

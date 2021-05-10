@@ -61,14 +61,14 @@ def setRobotParameters():
 def directKinematics(q):
 
     # define link lengths from urdf
-    links,_,_ = setRobotParameters()
-    l1 = links[0]
-    l2 = links[1]
-    l3 = links[2]
-    l4 = links[3]
-    l5 = links[4]
-    l6 = links[5]
-    l7 = links[6]
+    link_length,_,_ = setRobotParameters()
+    l1 = link_length[0]
+    l2 = link_length[1]
+    l3 = link_length[2]
+    l4 = link_length[3]
+    l5 = link_length[4]
+    l6 = link_length[5]
+    l7 = link_length[6]
 
     # local homogeneous transformation matrices
     T_01 = np.array([[math.cos(q[0]), -math.sin(q[0]), 0,  0],
@@ -108,12 +108,12 @@ def directKinematics(q):
                      [0,  0, 0,  1]])
 
     # global homogeneous transformation matrices
-    T_02_ = T_01.dot(T_12_)
-    T_02 = T_02_.dot(T_12)
-    T_03 = T_02.dot(T_23)
-    T_04_ = T_03.dot(T_34_)
-    T_04 = T_04_.dot(T_34)
-    T_0e = T_04.dot(T_4e)
+    T_02_ = T_01.dot(T_12_) # rigid transform
+    T_02 = T_02_.dot(T_12) # joint 2 transform
+    T_03 = T_02.dot(T_23)  # joint 3 transform
+    T_04_ = T_03.dot(T_34_) # rigid transform
+    T_04 = T_04_.dot(T_34) # joint 4 transform
+    T_0e = T_04.dot(T_4e) # rigid transform
 
     return T_01, T_02, T_03, T_04, T_0e 
 
@@ -122,7 +122,7 @@ def computeEndEffectorJacobian(q):
     # compute direct kinematics 
     T_01, T_02, T_03, T_04, T_0e = directKinematics(q)
 
-    # rigid 90 degrees rotation to have z axis corresponding to axis of roation
+    # rigid 90 degrees rotation to have z axis corresponding to axis of rotation
     R_90 = np.array([[1,  0, 0],
                      [0,  0, 1],
                      [0, -1, 0]])
@@ -167,6 +167,7 @@ def rot2eul(R):
 def geometric2analyticJacobian(J,T_0e):
     R = T_0e[:3,:3]
     rpy = rot2eul(R)
+    # compute the mapping between euler rates and angular velocity
     T = np.array([[math.cos(rpy[1])*math.cos(rpy[2]), -math.sin(rpy[2]), 0],
                   [math.cos(rpy[1])*math.sin(rpy[2]),  math.cos(rpy[2]), 0],
                   [                 -math.sin(rpy[1]),                0, 1]])
