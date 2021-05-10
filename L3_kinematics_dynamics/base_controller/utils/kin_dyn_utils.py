@@ -8,6 +8,8 @@ Created on May 4 2021
 import numpy as np
 import os
 import math
+import pinocchio as pin
+from pinocchio.utils import *
 
 # function to set parameters based on data from URDF
 def setRobotParameters():
