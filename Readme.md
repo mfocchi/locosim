@@ -85,7 +85,11 @@ sudo apt-get install ros-$(rosversion -d)-urdfdom-py
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-joint_state_publisher
+sudo apt-get install ros-$(rosversion -d)-joint-state-publisher
+```
+
+```
+sudo apt-get install ros-$(rosversion -d)-joint-state-publisher-gui
 ```
 
 ```
