@@ -402,7 +402,12 @@ def RNEA(g0,q,qd,qdd):
 def getg(q,robot):
     qd = np.array([0.0, 0.0, 0.0, 0.0])
     qdd = np.array([0.0, 0.0, 0.0, 0.0])
-    g = pin.rnea(robot.model, robot.data, q,qd ,qdd)
+#    print "AAA"
+#    g = pin.rnea(robot.model, robot.data, q,qd ,qdd)
+#    print g
+    g = RNEA(9.81,q,qd,qdd)
+   
+#    print g
     return g
 
 
@@ -414,14 +419,26 @@ def getM(q,robot):
     for i in range(n):
         ei = np.array([0.0, 0.0, 0.0, 0.0])
         ei[i] = 1
-        taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]),ei)
+#        print "AAA"
+#        taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]),ei)
+#        print taup
+        taup = RNEA(9.81, q, np.array([0.0, 0.0, 0.0, 0.0]),ei)
+#        print taup
         M[:4,i] = taup - g
+   
+        
+        
     return M
 
 def getC(q,qd,robot):
     g = getg(q,robot)
     qdd = np.array([0.0, 0.0, 0.0, 0.0])
-    C = pin.rnea(robot.model, robot.data,q,qd,qdd) - g
+#    print "AAA"
+#    C = pin.rnea(robot.model, robot.data,q,qd,qdd) - g
+#    print C
+    C = RNEA(0.0, q, qd, np.array([0.0, 0.0, 0.0, 0.0]))
+#    print C
+    
     return C      
 
     

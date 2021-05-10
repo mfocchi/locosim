@@ -92,9 +92,9 @@ while any(i >= 0.01 for i in np.abs(error)):
     
     # # # bias terms                
     h = robot.nle(q, qd, False)
-    C = getC(q,qd,robot)    
+    C_ = getC(q,qd,robot)    
 
-    damping =  - 0.5*qd
+    damping =  - 20*qd
 
     x = robot.framePlacement(q, frame_ee).translation 
 				    # compute jacobian of the end effector (in the WF)        
@@ -102,9 +102,17 @@ while any(i >= 0.01 for i in np.abs(error)):
     # take first 3 rows of J6 cause we have a point contact            
     J = J6[:3,:] 
 
-    #SIMULATION of the forward dynamics    
-    M_inv = np.linalg.inv(M)  
-    qdd = M_inv.dot(damping-h)    
+    #SIMULATION of the forward dynamics 
+#    with Pinocchio  
+#    M_inv = np.linalg.inv(M)  
+#    qdd = M_inv.dot(damping-h)
+#    print qdd
+
+    ## with Octavio's   
+    M_inv = np.linalg.inv(M_)
+    qdd = M_inv.dot(damping -C_ -g_) 
+    
+#    print qdd
     
     # Forward Euler Integration    
     qd = qd + qdd*conf.dt    
