@@ -8,6 +8,7 @@ import time as tm
 
 from base_controller.utils.common_functions import *
 from base_controller.utils.ros_publish_ur4 import RosPub
+
 from base_controller.utils.kin_dyn_utils import directKinematics as dk
 from base_controller.utils.kin_dyn_utils import computeEndEffectorJacobian as eeJ
 from base_controller.utils.kin_dyn_utils import numericalInverseKinematics as ik
@@ -67,15 +68,23 @@ jacobian_diff = J - J6
 
 # exercise 2.3
 J_r = g2a(J, T_0e)
-
 # exercise 2.4
 # desired task space position
-p = np.array([-0.5, -0.2, 0.5, math.pi / 3])
-# p = np.array([2, -0.2, 0.5, math.pi]) # not solvable, outside of workspace
 
-# initial value for numerical ik
-q_i = np.array([0.5, -1.0, -0.8, -math.pi])  # good initialization
-# q_i  = np.array([ -5, -5.0, -0.8, -math.pi]) # bad initialization
+# p = np.array([2.5, -0.2, -0.5, math.pi]) # not solvable, outside of workspace
+
+# Solvable/good initialization
+# p = np.array([-0.5, -0.2, 0.5, math.pi / 3])
+# q_i = np.array([0.5, -1.0, -0.8, -math.pi])  # good initialization
+
+# Solvable/ bad initialization
+# p = np.array([-0.5, -0.2, 0.5, math.pi / 3])
+# q_i  = np.array([-5, -5.0, -0.8, -math.pi]) # bad initialization
+
+# Non solvable / initialization is irrelevant
+q_i = np.array([0.5, -1.0, -0.8, -math.pi])
+p = np.array([2.5, -0.2, -0.5, math.pi]) # not solvable, outside of workspace
+# p = np.array([-2.5, -0.5, 0.5, math.pi]) # not solvable, outside of workspace
 
 # solution of the numerical ik
 q_f = ik(p, q_i)
@@ -84,6 +93,12 @@ q_f = ik(p, q_i)
 T_01, T_02, T_03, T_04, T_0e = dk(q_f)
 rpy = rot2eul(T_0e[:3, :3])
 task_diff = p - np.hstack((T_0e[:3, 3], rpy[0]))
+print "Point selected"
+print p
+print "IK solution"
+print np.hstack((T_0e[:3, 3], rpy[0]))
+print "Error"
+print np.linalg.norm(task_diff)
 
 while np.count_nonzero(q - q_f):
 
@@ -100,7 +115,7 @@ while np.count_nonzero(q - q_f):
     q_des_log = np.vstack((q_des_log, q_des))
     qd_log = np.vstack((qd_log, qd))
     qd_des_log = np.vstack((qd_des_log, qd_des))
-    qdd_log = np.vstack((qdd_log, qd))
+    qdd_log = np.vstack((qdd_log, qdd))
     qdd_des_log = np.vstack((qdd_des_log, qdd_des))
     # tau_log = np.vstack((tau_log, tau))
 
@@ -113,16 +128,16 @@ while np.count_nonzero(q - q_f):
     # stops the while loop if  you prematurely hit CTRL+C
     if ros_pub.isShuttingDown():
         print ("Shutting Down")
-        break;
+        break
 
 raw_input("Final position reached. Press Enter to continue and plot results")
 ros_pub.deregister_node()
 
 # plot joint variables                                                                              
 plotJoint('position', 0, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
-# plotJoint('velocity', 1, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
-# plotJoint('acceleration', 2, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
-# plotJoint('torque', 3, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
+plotJoint('velocity', 1, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
+plotJoint('acceleration', 2, time_log, q_log, q_des_log, qd_log, qd_des_log, qdd_log, qdd_des_log, tau_log)
+
 raw_input("Press Enter to exit")
 
 

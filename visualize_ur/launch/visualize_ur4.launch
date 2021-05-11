@@ -2,7 +2,7 @@
 <launch>
      
      <arg name="rviz_conf" default="$(env LOCOSIM_DIR)/robot_control/rviz/config.rviz"/>
-     <arg name="test_joints" default="true"/>
+     <arg name="test_joints" default="false"/>
      <arg name="robot_name" default="ur4_robot"/>
 
      <param name="/rosout/omit_topics" value="true"/>
