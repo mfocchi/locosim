@@ -323,6 +323,13 @@ def RNEA(g0,q,qd,qdd, Fee = np.zeros((1,3)), Mee = np.zeros((1,3))):
 
     # initializing variables
     n = len(q)
+    
+    #pre-pend a fake joint for base link
+    q_link = np.insert(q, 0, 0.0, axis=0)
+    qd_link = np.insert(qd, 0, 0.0, axis=0)
+    qdd_link = np.insert(qdd, 0, 0.0, axis=0)
+        
+    
     zeroV = np.zeros((1,3))
     omega = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
     v = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
@@ -338,7 +345,9 @@ def RNEA(g0,q,qd,qdd, Fee = np.zeros((1,3)), Mee = np.zeros((1,3))):
 
     # obtaining joint axes vectors required in the computation of the velocities and accelerations (expressed in the world frame)
     _,z1,z2,z3,z4 = computeEndEffectorJacobian(q)
-    z = np.array([z1,z2,z3,z4])
+    
+    
+    z = np.array([np.zeros((1,3)), z1,z2,z3,z4])
    
     # global homogeneous transformation matrices
     T_01, T_02, T_03, T_04, T_0e = directKinematics(q)
@@ -389,8 +398,8 @@ def RNEA(g0,q,qd,qdd, Fee = np.zeros((1,3)), Mee = np.zeros((1,3))):
             a[0] = -g0 # acceleration of the base is just gravity so we remove it from Netwon equations
         else:
             p_ = p[i] - p[i-1] #p_i-1,i
-            omega[i] = omega[i-1] + qd[i-1]*z[i-1]
-            omega_dot[i] = omega_dot[i-1] + qdd[i-1]*z[i-1] + qd[i-1]*np.cross(omega[i-1],z[i-1])
+            omega[i] = omega[i-1] + qd_link[i]*z[i]
+            omega_dot[i] = omega_dot[i-1] + qdd_link[i]*z[i] + qd_link[i]*np.cross(omega[i-1],z[i])
 
             v[i] = v[i-1] + np.cross(omega[i-1],p_)
             a[i] = a[i-1] + np.cross(omega_dot[i-1],p_) + np.cross(omega[i-1],np.cross(omega[i-1],p_))
@@ -416,9 +425,9 @@ def RNEA(g0,q,qd,qdd, Fee = np.zeros((1,3)), Mee = np.zeros((1,3))):
                np.dot(I[i],omega_dot[i]) + \
                np.cross(omega[i],np.dot(I[i],omega[i]))  
 
-    # compute torque for all joints (revolute)
+    # compute torque for all joints (revolute) by projection
     for i in range(n):
-        tau[i] = np.dot(z[i],M[i+1]) 
+        tau[i] = np.dot(z[i+1],M[i+1]) 
 
     return tau
 
