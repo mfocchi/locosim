@@ -56,6 +56,7 @@ frame_ee = robot.model.getFrameId(conf.frame_name)
 
 error = np.array([1, 1, 1, 1])
 
+
 # Main loop to simulate dynamics
 while any(i >= 0.01 for i in np.abs(error)):
        
@@ -74,53 +75,46 @@ while any(i >= 0.01 for i in np.abs(error)):
 
     # print taup - tau_
 
-    g = robot.gravity(q)
-    # #gravity terms               
-    g_ = getg(q,robot)
+    # gravity terms               
+    # Pinocchio
+    #g = robot.gravity(q)      
+    g = getg(q,robot)
+       
 
     # Exercise 3.2
     # compute joint space inertia matrix with Pinocchio                
-    M = robot.mass(q, False)
-    M_ = getM(q,robot)
-
+    #M = robot.mass(q, False)
+    M = getM(q,robot)
+    
     # compute joint space intertia matrix with built-in pinocchio rnea
     M_new = np.zeros((4,4))
     for i in range(4):
         ei = np.array([0.0, 0.0, 0.0, 0.0])
         ei[i] = 1
         taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]) ,ei)
-        M_new[:4,i] = taup - g
-
+        M_new[:4,i] = taup - g 
     
-    
-    # # # bias terms                
-    h = robot.nle(q, qd, False)
-    C_ = getC(q,qd,robot)    
-
+    # Pinocchio bias terms                
+    #h = robot.nle(q, qd, False)    
+    C = getC(q,qd,robot)    
+    # viscous friction to stop the motion
     damping =  - 20*qd
 
     x = robot.framePlacement(q, frame_ee).translation 
-				    # compute jacobian of the end effector (in the WF)        
+    # compute jacobian of the end effector (in the WF)        
     J6 = robot.frameJacobian(q, frame_ee, False, pin.ReferenceFrame.LOCAL_WORLD_ALIGNED)                    
     # take first 3 rows of J6 cause we have a point contact            
-    J = J6[:3,:] 
+    J = J6[:3,:]    
 
     #SIMULATION of the forward dynamics 
-#    with Pinocchio  
-#    M_inv = np.linalg.inv(M)  
-#    qdd = M_inv.dot(damping-h)
-#    print qdd
-
-    ## with Octavio's   
-    M_inv = np.linalg.inv(M_)
-    qdd = M_inv.dot(damping -C_ -g_) 
-    
-#    print qdd
-    
+    M_inv = np.linalg.inv(M)
+    # Pinocchio
+    #qdd = M_inv.dot(damping-h)
+    qdd = M_inv.dot(damping -C -g) 
+       
     # Forward Euler Integration    
     qd = qd + qdd*conf.dt    
     q = q + conf.dt*qd  + 0.5*conf.dt*conf.dt*qdd 
-    
 
     # Log Data into a vector
     time_log = np.append(time_log, time)	
@@ -141,7 +135,8 @@ while any(i >= 0.01 for i in np.abs(error)):
    
                 
     #publish joint variables
-    ros_pub.publish(robot, q, qd,damping)                   
+    ros_pub.publish(robot, q, qd,damping)    
+                   
     tm.sleep(conf.dt*conf.SLOW_FACTOR)
     
     # stops the while loop if  you prematurely hit CTRL+C                    
@@ -149,7 +144,7 @@ while any(i >= 0.01 for i in np.abs(error)):
         print ("Shutting Down")                    
         break;
             
-raw_input("Robot came to a stop. Press Enter to continue")
+#raw_input("Robot came to a stop. Press Enter to continue")
 ros_pub.deregister_node()
         
 

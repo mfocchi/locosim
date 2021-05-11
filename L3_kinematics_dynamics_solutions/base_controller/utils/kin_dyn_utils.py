@@ -302,12 +302,13 @@ def fifthOrderPolynomialTrajectory(tf,q0,qf):
 
     return polyCoeff
     
-def RNEA(g0,q,qd,qdd):
+def RNEA(g0,q,qd,qdd, Fee = np.zeros((1,3)), Mee = np.zeros((1,3))):
 
     # setting values of inertia tensors w.r.t. to their CoMs from urdf and link masses
     _, tensors, m, coms = setRobotParameters()
 
     # get inertia tensors about the com expressed in the respective link frame    
+    c_I_0 = tensors[0]    
     c_I_1 = tensors[1]
     c_I_2 = tensors[2]
     c_I_3 = tensors[3]
@@ -323,15 +324,15 @@ def RNEA(g0,q,qd,qdd):
     # initializing variables
     n = len(q)
     zeroV = np.zeros((1,3))
-    omega = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
-    v = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
-    omega_dot = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
-    a = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
-    vc = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
-    ac = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
+    omega = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
+    v = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
+    omega_dot = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0],zeroV[0]])
+    a = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
+    vc = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
+    ac = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0],zeroV[0]])
 
-    F = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
-    M = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0]])
+    F = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0], Fee[0]])
+    M = np.array([zeroV[0], zeroV[0], zeroV[0], zeroV[0], zeroV[0], Mee[0]])
 
     tau = np.array([0.0, 0.0, 0.0, 0.0])
 
@@ -339,7 +340,6 @@ def RNEA(g0,q,qd,qdd):
     _,z1,z2,z3,z4 = computeEndEffectorJacobian(q)
     z = np.array([z1,z2,z3,z4])
    
-    print z
     # global homogeneous transformation matrices
     T_01, T_02, T_03, T_04, T_0e = directKinematics(q)
 
@@ -350,10 +350,9 @@ def RNEA(g0,q,qd,qdd):
     p_03 = T_03[:3,3]
     p_04 = T_04[:3,3]
     p_0e = T_0e[:3,3]
-    
-    
-
+     
     # rotation matrices w.r.t. to the world of each link
+    R_00 = np.eye(3)    
     R_01 = T_01[:3,:3]
     R_02 = T_02[:3,:3]
     R_03 = T_03[:3,:3]
@@ -371,18 +370,16 @@ def RNEA(g0,q,qd,qdd):
     p = np.array([p_00, p_01, p_02, p_03, p_04, p_0e])
     pc = np.array([pc_0, pc_1, pc_2, pc_3, pc_4, pc_e])
 
-
-    
     # expressing tensors of inertia of the links (about the com) in the world frame (time consuming)
+    I_0 = np.dot(np.dot(R_00,c_I_0),R_00.T)    
     I_1 = np.dot(np.dot(R_01,c_I_1),R_01.T)
     I_2 = np.dot(np.dot(R_02,c_I_2),R_02.T)
     I_3 = np.dot(np.dot(R_03,c_I_3),R_03.T)
     I_4 = np.dot(np.dot(R_04,c_I_4),R_04.T)
-    I = np.array([I_1, I_2, I_3, I_4])
+    I = np.array([I_0, I_1, I_2, I_3, I_4])
 
     # forward pass: compute accelerations from 0 to ee
-    for i in range(n):
-
+    for i in range(n+1):
         if i == 0: # we start from base link 0
             p_ = p[0]            
             #base frame is still (not true for a legged robot!)
@@ -390,11 +387,10 @@ def RNEA(g0,q,qd,qdd):
             v[0] = 0 
             omega_dot[0] = 0
             a[0] = -g0 # acceleration of the base is just gravity so we remove it from Netwon equations
-            
         else:
             p_ = p[i] - p[i-1] #p_i-1,i
-            omega[i] = omega[i-1] + qd[i]*z[i]
-            omega_dot[i] = omega_dot[i-1] + qdd[i]*z[i] + qd[i]*np.cross(omega[i-1],z[i])
+            omega[i] = omega[i-1] + qd[i-1]*z[i-1]
+            omega_dot[i] = omega_dot[i-1] + qdd[i-1]*z[i-1] + qd[i-1]*np.cross(omega[i-1],z[i-1])
 
             v[i] = v[i-1] + np.cross(omega[i-1],p_)
             a[i] = a[i-1] + np.cross(omega_dot[i-1],p_) + np.cross(omega[i-1],np.cross(omega[i-1],p_))
@@ -405,27 +401,24 @@ def RNEA(g0,q,qd,qdd):
         vc[i] = v[i] + np.cross(omega[i],p_)
         ac[i] = a[i] + np.cross(omega_dot[i],pc_) + np.cross(omega[i],np.cross(omega[i],pc_))
 
+    
     # backward pass: compute forces and moments from ee to 1 TODO CHECK FROM HERE
-    for i in range(n-1,-1,-1):
-        if i == 0:
-            p_ = p[i]            
-        else:
-            p_ = p[i] - p[i-1]
-        
-        pc_ = pc[i] - p[i]
-        pc_1 = pc[i] - p[i+1]
+    for i in range(n,-1,-1):   
 
+        pc_ = p[i]- pc[i]  
+        pc_1 = p[i+1] - pc[i] 
+        
         F[i] = F[i+1] + m[i]*(ac[i])
         
         M[i] = M[i+1] - \
-               np.cross(F[i],pc_) + \
-               np.cross(F[i+1],pc_1) + \
+               np.cross(pc_,F[i]) + \
+               np.cross(pc_1,F[i+1]) + \
                np.dot(I[i],omega_dot[i]) + \
                np.cross(omega[i],np.dot(I[i],omega[i]))  
 
     # compute torque for all joints (revolute)
     for i in range(n):
-        tau[i] = np.dot(M[i].T,z[i]) 
+        tau[i] = np.dot(z[i],M[i+1]) 
 
     return tau
 
@@ -433,43 +426,34 @@ def RNEA(g0,q,qd,qdd):
 def getg(q,robot):
     qd = np.array([0.0, 0.0, 0.0, 0.0])
     qdd = np.array([0.0, 0.0, 0.0, 0.0])
-#    print "AAA"
-#    g = pin.rnea(robot.model, robot.data, q,qd ,qdd)
-#    print g
-    g = RNEA(np.array([0.0, 0.0, -9.81]),q,qd,qdd)
-   
-#    print g
+    # Pinocchio
+    # g = pin.rnea(robot.model, robot.data, q,qd ,qdd)
+    g = RNEA(np.array([0.0, 0.0, -9.81]),q,qd,qdd)   
     return g
 
 
 # computation of generalized mass matrix
 def getM(q,robot):
-    g = getg(q,robot)
     n = len(q)
     M = np.zeros((n,n))
     for i in range(n):
         ei = np.array([0.0, 0.0, 0.0, 0.0])
         ei[i] = 1
-#        print "AAA"
-#        taup = pin.rnea(robot.model, robot.data, q,np.array([0,0,0,0]),ei)
-#        print taup
-        taup = RNEA(np.array([0.0, 0.0, -9.81]), q, np.array([0.0, 0.0, 0.0, 0.0]),ei)
-#        print taup
-        M[:4,i] = taup - g
-   
-        
+        # Pinocchio
+        #g = getg(q,robot)
+        # tau_p = pin.rnea(robot.model, robot.data, q, np.array([0,0,0,0]),ei) -g      
+        tau = RNEA(np.array([0.0, 0.0, 0.0]), q, np.array([0.0, 0.0, 0.0, 0.0]),ei)
+        # fill in the column of the inertia matrix
+        M[:4,i] = tau        
         
     return M
 
-def getC(q,qd,robot):
-    g = getg(q,robot)
+def getC(q,qd,robot):   
     qdd = np.array([0.0, 0.0, 0.0, 0.0])
-#    print "AAA"
-#    C = pin.rnea(robot.model, robot.data,q,qd,qdd) - g
-#    print C
+    # Pinocchio
+    # g = getg(q,robot)
+    # C = pin.rnea(robot.model, robot.data,q,qd,qdd) - g    
     C = RNEA(np.array([0.0, 0.0, 0.0]), q, qd, np.array([0.0, 0.0, 0.0, 0.0]))
-#    print C
-    
     return C      
 
     
