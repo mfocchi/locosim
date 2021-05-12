@@ -215,12 +215,6 @@ export LOCOSIM_DIR=$HOME/ros_ws/src/locosim
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/
 ```
 
-copy the updated urdf of UR robot 
-
-```
-sudo cp $LOCOSIM_DIR/robot_control/ur5_modified.urdf /opt/openrobots/share/example-robot-data/robots/ur_description/urdf/ur.urdf
-```
-
 #### Compile the code
 
 ```
