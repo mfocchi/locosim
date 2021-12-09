@@ -1,6 +1,8 @@
+# What is locosim?
 
+Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo robots are supported) and manipulators (UR5 robot is supported).
 
-
+Locosim is composed by a **roscontrol** node called ros_impedance_controller written in C++ that interfaces the python ros node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For the controller plotting / logging utilities are available to evaluate the results and a config file (LX_conf.py) to change the controller parameters. 
 
 # Usage with a Virtual Machine
 
@@ -8,7 +10,19 @@ Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzd
 
 
 
-# Install on Ubuntu 16 / Ubuntu 18
+# Installation on Ubuntu 16 / Ubuntu 18
+
+First clone the repository inside a ros workspace, then remember to update its submodules  (robot_control and ros_impedance_controller) running this command in the locosim root:
+
+```
+git submodule update --init --recursive
+```
+
+Finally you need to compile the C++ code running in your ros workspace 
+
+```
+catkin_make install
+```
 
 ## Install Spyder python IDE
 
