@@ -140,6 +140,10 @@ sudo apt-get install ros-$(rosversion -d)-gazebo-ros
 sudo apt-get install ros-$(rosversion -d)-controller-manager
 ```
 
+```
+sudo apt-get install ros-$(rosversion -d)-ros-controllers
+```
+
 
 
 ### Install robot urdfs 
