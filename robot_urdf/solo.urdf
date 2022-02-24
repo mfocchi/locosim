@@ -6,6 +6,7 @@
 <robot name="solo" xmlns:xacro="http://ros.org/wiki/xacro">
   <gazebo>
     <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_controller_manager">
+      <!-- if task_period is smaller than sim max_step_size (in world file) it is clamped to that value!!!!!!-->
       <robotNamespace>/solo</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
       <legacyModeNS>true</legacyModeNS>
@@ -69,203 +70,16 @@
       <restitution value="0.5"/>
     </contact>
   </link>
-  <joint name="z_left_wheel_joint" type="revolute">
-    <parent link="trunk"/>
-    <child link="left_wheel"/>
-    <origin rpy="-1.57 0 0" xyz=" 0 0.15 0.0"/>
-    <axis xyz="0 0 1"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="1000" lower="-1e06" upper="1e06" velocity="1000"/>
-  </joint>
-  <link name="left_wheel">
-    <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.00025"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="z_right_wheel_joint" type="revolute">
-    <parent link="trunk"/>
-    <child link="right_wheel"/>
-    <origin rpy="1.57 0 0" xyz=" 0 -0.15 0.0"/>
-    <axis xyz="0 0 1"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="1000" lower="-1e06" upper="1e06" velocity="1000"/>
-  </joint>
-  <link name="right_wheel">
-    <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.00025"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="z_front_wheel_joint" type="revolute">
-    <parent link="trunk"/>
-    <child link="front_wheel"/>
-    <origin rpy="0.0 1.57 0" xyz=" 0.2 0.0 0.0"/>
-    <axis xyz="0 0 1"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="1000" lower="-1e06" upper="1e06" velocity="1000"/>
-  </joint>
-  <link name="front_wheel">
-    <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.00025"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="z_back_wheel_joint" type="revolute">
-    <parent link="trunk"/>
-    <child link="back_wheel"/>
-    <origin rpy="0 -1.57 0" xyz=" -0.2 0.0 0.0"/>
-    <axis xyz="0 0 1"/>
-    <dynamics damping="0.0" friction="0.0"/>
-    <limit effort="1000" lower="-1e06" upper="1e06" velocity="1000"/>
-  </joint>
-  <link name="back_wheel">
-    <inertial>
-      <mass value="0.1"/>
-      <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.00025"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
-      <geometry>
-        <cylinder length="0.05" radius="0.05"/>
-      </geometry>
-    </collision>
-  </link>
-  <transmission name="z_right_wheel_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="z_right_wheel_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="z_right_wheel_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="z_left_wheel_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="z_left_wheel_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="z_left_wheel_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="z_back_wheel_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="z_back_wheel_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="z_back_wheel_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="z_front_wheel_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="z_front_wheel_joint">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="z_front_wheel_motor">
-      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <gazebo reference="left_wheel">
-    <material>Gazebo/Red</material>
-    <!-- kp and kd for rubber -->
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>1.0</maxVel>
-    <minDepth>0.00</minDepth>
-  </gazebo>
-  <gazebo reference="right_wheel">
-    <material>Gazebo/Grey</material>
-    <!-- kp and kd for rubber -->
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>1.0</maxVel>
-    <minDepth>0.00</minDepth>
-  </gazebo>
-  <gazebo reference="back_wheel">
-    <material>Gazebo/Blue</material>
-    <!-- kp and kd for rubber -->
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>1.0</maxVel>
-    <minDepth>0.00</minDepth>
-  </gazebo>
-  <gazebo reference="front_wheel">
-    <material>Gazebo/Yellow</material>
-    <!-- kp and kd for rubber -->
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <fdir1>1 0 0</fdir1>
-    <maxVel>1.0</maxVel>
-    <minDepth>0.00</minDepth>
-  </gazebo>
   <!--HAA JOINT: Joint between the trunk and the hip assembly -->
   <joint name="lf_haa_joint" type="revolute">
     <parent link="trunk"/>
     <child link="lf_hip_assembly"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the x-axis -->
     <axis xyz="1 0 0"/>
-    <!-- placement of the joint -->
+    <!-- limit and placement of the joint -->
     <!-- LF_HAA_JOINT -->
+    <!-- lower=-75deg, upper=140, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-1.30899694" upper="2.44346095" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0.1946 0.0875 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -309,9 +123,11 @@
   <joint name="lf_hfe_joint" type="revolute">
     <parent link="lf_hip_assembly"/>
     <child link="lf_upper_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- LF_HFE_JOINT -->
+    <!-- lower=-225deg, upper=90deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-3.92699082" upper="1.57079633" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 0.014 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -355,9 +171,11 @@
   <joint name="lf_kfe_joint" type="revolute">
     <parent link="lf_upper_leg"/>
     <child link="lf_lower_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- LF_KFE JOINT -->
+    <!-- lower=-370deg, upper=370deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-6.45771823" upper="6.45771823" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 0.03745 -0.16"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -429,6 +247,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://solo_description/meshes/stl/with_foot/solo_foot.stl"/>
+        <!-- sphere radius="0.01"/-->
       </geometry>
       <material name="grey">
         <color rgba="0.8 0.8 0.8 1.0"/>
@@ -523,7 +342,7 @@
       <always_on>true</always_on>
       <update_rate>250.0</update_rate>
       <contact>
-        <collision>lf_lowerleg_fixed_joint_lump__lf_foot_collision_1</collision>
+        <collision>lf_lower_leg_fixed_joint_lump__lf_foot_collision_1</collision>
       </contact>
       <!-- the sensor readings in terms of force torques are expressed in the lowerleg frame
                                 because gazebo lumps the fake footframe with the real parent link, the normals are in the world frame-->
@@ -538,11 +357,12 @@
   <joint name="rf_haa_joint" type="revolute">
     <parent link="trunk"/>
     <child link="rf_hip_assembly"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the x-axis -->
     <axis xyz="1 0 0"/>
-    <!-- placement of the joint -->
+    <!-- limit and placement of the joint -->
     <!-- RF_HAA_JOINT -->
+    <!-- lower=-140deg, upper=75, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-2.44346095" upper="1.30899694" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0.1946 -0.0875 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -586,9 +406,11 @@
   <joint name="rf_hfe_joint" type="revolute">
     <parent link="rf_hip_assembly"/>
     <child link="rf_upper_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- RF_HFE_JOINT -->
+    <!-- lower=-225deg, upper=90deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-3.92699082" upper="1.57079633" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 -0.014 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -632,9 +454,11 @@
   <joint name="rf_kfe_joint" type="revolute">
     <parent link="rf_upper_leg"/>
     <child link="rf_lower_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- RF_KFE JOINT -->
+    <!-- lower=-370deg, upper=370deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-6.45771823" upper="6.45771823" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 -0.03745 -0.16"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -706,6 +530,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://solo_description/meshes/stl/with_foot/solo_foot.stl"/>
+        <!-- sphere radius="0.01"/-->
       </geometry>
       <material name="grey">
         <color rgba="0.8 0.8 0.8 1.0"/>
@@ -800,7 +625,7 @@
       <always_on>true</always_on>
       <update_rate>250.0</update_rate>
       <contact>
-        <collision>rf_lowerleg_fixed_joint_lump__rf_foot_collision_1</collision>
+        <collision>rf_lower_leg_fixed_joint_lump__rf_foot_collision_1</collision>
       </contact>
       <!-- the sensor readings in terms of force torques are expressed in the lowerleg frame
                                 because gazebo lumps the fake footframe with the real parent link, the normals are in the world frame-->
@@ -815,11 +640,12 @@
   <joint name="lh_haa_joint" type="revolute">
     <parent link="trunk"/>
     <child link="lh_hip_assembly"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the x-axis -->
     <axis xyz="1 0 0"/>
-    <!-- placement of the joint -->
+    <!-- limit and placement of the joint -->
     <!-- LH_HAA_JOINT -->
+    <!-- lower=-75deg, upper=140, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-1.30899694" upper="2.44346095" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="-0.1946 0.0875 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -863,9 +689,11 @@
   <joint name="lh_hfe_joint" type="revolute">
     <parent link="lh_hip_assembly"/>
     <child link="lh_upper_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- LH_HFE_JOINT -->
+    <!-- lower=-90deg, upper=225deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-1.57079633" upper="3.92699082" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 0.014 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -909,9 +737,11 @@
   <joint name="lh_kfe_joint" type="revolute">
     <parent link="lh_upper_leg"/>
     <child link="lh_lower_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- LH_KFE JOINT -->
+    <!-- lower=-370deg, upper=370deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-6.45771823" upper="6.45771823" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 0.03745 -0.16"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -983,6 +813,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://solo_description/meshes/stl/with_foot/solo_foot.stl"/>
+        <!-- sphere radius="0.01"/-->
       </geometry>
       <material name="grey">
         <color rgba="0.8 0.8 0.8 1.0"/>
@@ -1077,7 +908,7 @@
       <always_on>true</always_on>
       <update_rate>250.0</update_rate>
       <contact>
-        <collision>lh_lowerleg_fixed_joint_lump__lh_foot_collision_1</collision>
+        <collision>lh_lower_leg_fixed_joint_lump__lh_foot_collision_1</collision>
       </contact>
       <!-- the sensor readings in terms of force torques are expressed in the lowerleg frame
                                 because gazebo lumps the fake footframe with the real parent link, the normals are in the world frame-->
@@ -1092,11 +923,12 @@
   <joint name="rh_haa_joint" type="revolute">
     <parent link="trunk"/>
     <child link="rh_hip_assembly"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the x-axis -->
     <axis xyz="1 0 0"/>
-    <!-- placement of the joint -->
+    <!-- limit and placement of the joint -->
     <!-- RH_HAA_JOINT -->
+    <!-- lower=-140deg, upper=75, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-2.44346095" upper="1.30899694" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="-0.1946 -0.0875 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -1140,9 +972,11 @@
   <joint name="rh_hfe_joint" type="revolute">
     <parent link="rh_hip_assembly"/>
     <child link="rh_upper_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- RF_HFE_JOINT -->
+    <!-- lower=-90deg, upper=225deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-1.57079633" upper="3.92699082" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 -0.014 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -1186,9 +1020,11 @@
   <joint name="rh_kfe_joint" type="revolute">
     <parent link="rh_upper_leg"/>
     <child link="rh_lower_leg"/>
-    <limit effort="1000" lower="-10" upper="10" velocity="1000"/>
     <!-- joints rotates around the y-axis -->
     <axis xyz="0 1 0"/>
+    <!-- RH_KFE JOINT -->
+    <!-- lower=-370deg, upper=370deg, velocity=555.5rpm (=5000rpm motor-side) -->
+    <limit effort="1.2" lower="-6.45771823" upper="6.45771823" velocity="58.17764173"/>
     <origin rpy="0 0 0" xyz="0 -0.03745 -0.16"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -1260,6 +1096,7 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="package://solo_description/meshes/stl/with_foot/solo_foot.stl"/>
+        <!-- sphere radius="0.01"/-->
       </geometry>
       <material name="grey">
         <color rgba="0.8 0.8 0.8 1.0"/>
@@ -1354,7 +1191,7 @@
       <always_on>true</always_on>
       <update_rate>250.0</update_rate>
       <contact>
-        <collision>rh_lowerleg_fixed_joint_lump__rh_foot_collision_1</collision>
+        <collision>rh_lower_leg_fixed_joint_lump__rh_foot_collision_1</collision>
       </contact>
       <!-- the sensor readings in terms of force torques are expressed in the lowerleg frame
                                 because gazebo lumps the fake footframe with the real parent link, the normals are in the world frame-->
