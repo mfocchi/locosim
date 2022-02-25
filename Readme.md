@@ -12,7 +12,7 @@ Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzd
 
 # Installation on Ubuntu 16 / Ubuntu 18
 
-First clone the repository inside a ros workspace, then remember to update its submodules  (robot_control and ros_impedance_controller) running this command in the locosim folder:
+First clone the repository inside a ros workspace, then remember to update its submodules  (robot_control and ros_impedance_controller) running this command in the locosim root:
 
 ```
 git submodule update --init --recursive
@@ -23,16 +23,6 @@ Finally you need to compile the C++ code running in your ros workspace
 ```
 catkin_make install
 ```
-
-**Important!**
-
-If you want to use the base_controller / base_controller_fixed to create a controller for the HyQ, Solo, Ur5 robots you need to clone also the relative URDF/XACRO description repositories in the same workspace:
-
-https://github.com/mfocchi/hyq_description
-
-https://github.com/mfocchi/solo_description.git
-
-https://github.com/mfocchi/ur_description
 
 ## Install Spyder python IDE
 
@@ -138,10 +128,6 @@ sudo apt-get install ros-$(rosversion -d)-gazebo-ros
 
 ```
 sudo apt-get install ros-$(rosversion -d)-controller-manager
-```
-
-```
-sudo apt-get install ros-$(rosversion -d)-ros-controllers
 ```
 
 
