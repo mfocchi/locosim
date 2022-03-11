@@ -158,6 +158,10 @@ sudo apt-get install robotpkg-py27-quadprog
 sudo apt-get install python-termcolor
 ```
 
+```
+sudo apt-get install python-psutil
+```
+
 
 
 ### Download code and Setup ros workspace
@@ -219,13 +223,11 @@ gedit  ~/.bashrc
 copy the following lines (at the end of the .bashrc!):
 
 ```
+source /opt/ros/kinetic/setup.bash
 source $HOME/ros_ws/install/setup.bash
-export UR5_MODEL_DIR=/opt/openrobots/share/example-robot-data/robots
 export PATH=/opt/openrobots/bin:$PATH
-export PKG_CONFIG_PATH=/opt/openrobots/lib/pkgconfig:$PKG_CONFIG_PATH
-export LD_LIBRARY_PATH=/opt/openrobots/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=/opt/openrobots/lib/python2.7/site-packages:$PYTHONPATH
 export LOCOSIM_DIR=$HOME/ros_ws/src/locosim
+export PYTHONPATH=/opt/openrobots/lib/python2.7/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/
 ```
 
@@ -237,6 +239,58 @@ cd ~/ros_ws/
 
 ```
  catkin_make install 
+```
+
+
+
+### **Support for Universal Robots** (only for advanced users, requires ros noetic)
+
+```
+sudo apt install ros-noetic-pass-through-controllers
+```
+
+```
+sudo apt install ros-noetic-moveit-core
+```
+
+```
+sudo apt install ros-noetic-moveit-kinematics
+```
+
+```
+sudo apt install ros-noetic-ur-msgs
+```
+
+```
+sudo apt install ros-noetic-ur-robots-driver
+```
+
+```
+sudo apt install ros-noetic-speed-scaling-state-controller
+```
+
+```
+sudo apt install ros-noetic-speed-scaling-interface
+```
+
+```
+sudo apt install ros-noetic-speed-scaling-state-controller
+```
+
+```
+sudo apt install ros-noetic-speed-scaling-interface
+```
+
+```
+sudo apt install ros-noetic-ur-client-library
+```
+
+```
+sudo apt install ros-noetic-scaled-joint-trajectory-controller
+```
+
+```
+sudo apt install ros-noetic-pass-through-controllers
 ```
 
 
