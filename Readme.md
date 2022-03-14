@@ -295,5 +295,15 @@ sudo apt install ros-noetic-pass-through-controllers
 
 
 
+**Support for Realsense camera (Simulation)**
 
+This packages are needed if you want to see the PointCloud published by a realsense camera attached at the endeffector. To activate it, you should load the ur5 with the flag "vision_sensor:=true"
+
+```
+sudo apt-get install ros-noetic-openni2-launch
+```
+
+```
+sudo apt-get install ros-noetic-openni2-camera
+```
 
