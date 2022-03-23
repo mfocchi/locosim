@@ -8,7 +8,11 @@ Locosim is composed by a **roscontrol** node called ros_impedance_controller wri
 
 Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_descriptions**
 
+# **Important** note
 
+If you use Ubuntu 20 (Focal) you should replace all the occurrences of kinetic with noetic, python with python3 and pip with pip3. 
+
+Moreover, you should set the flag new_gazebo_version = "true" inside the ros_impedance_controller_XX.launch file.  
 
 # Installation on Ubuntu 16 / Ubuntu 18
 
