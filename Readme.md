@@ -247,6 +247,40 @@ cd ~/ros_ws/
 
 
 
+### **Running the software**
+
+You can execute a python script directly from the terminal using the following command (according to the version of python 2.7 or 3.X you have):
+
+```
+python/python3 script_name.py
+```
+
+The scripts are located or in the robot_control root or in the robot_control/base_controller folder
+
+If you want to keep interacting with the interpreter after the execution of the script use the following command:
+
+```
+python3 -i script_name.py
+```
+
+Rather than running scripts from the terminal, it is more convenient to use a customized python editor. For this class we suggest you use the software "spyder/spyedr3" or pycharm. You should run spyder from the terminal by simply typing:
+
+```
+spyder/spyder3
+```
+
+Once spyder is open, you can use "File->Open" to open a python script, and then click on the "Run file" button (green "play" shape) to execute the script. The first time that you run a script in spyder, you must set up the configuration options. In particular, you must choose the type of console between these 3 options:
+
+1. current console
+2. dedicated console
+3. external system terminal
+
+Typically option 1 (which is the default choice) does not work, so you should use either option 2 or 3. I typically use option 2, but option 3 is fine as well. If you have already run a file on spyder3 and you want to change the console to use, you can do it via the menu "*Run -> Configuration per file*".
+
+Side note: depending on your OS version, option 2 and/or option 3 also allow you to check the option "*Interact with the Python console after execution*", which is useful to explore the value of the script variables after the execution has ended.
+
+
+
 ### **Support for Universal Robots** (only for advanced users, requires ros noetic)
 
 ```
