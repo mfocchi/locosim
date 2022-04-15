@@ -1,5 +1,4 @@
 <?xml version="1.0" ?>
-
 <robot name="simple_geometry" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
