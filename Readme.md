@@ -8,13 +8,13 @@ Locosim is composed by a **roscontrol** node called ros_impedance_controller wri
 
 Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_descriptions**
 
-# **Important** note
 
-If you use Ubuntu 20 (Focal) you should replace all the occurrences of kinetic with noetic, python with python3 and pip with pip3. 
 
-Moreover, you should set the flag new_gazebo_version = "true" inside the ros_impedance_controller_XX.launch file.  
+# Installation on Ubuntu 16 / Ubuntu 20
 
-# Installation on Ubuntu 16 / Ubuntu 18
+IMPORTANT NOTE: 
+
+In the following commands, if you are installing for Ubuntu 16, you need to consider **kinetic** as  ROS version, **py27**, and **pip**, for Ubuntu 20, consider **noetic** as ROS version, **py38**  and **pip3**.
 
 First clone the repository inside a ros workspace, then remember to update its submodules  (robot_control and ros_impedance_controller) running this command in the locosim root:
 
@@ -163,7 +163,7 @@ sudo apt-get install python-termcolor
 ```
 
 ```
-sudo apt-get install python-psutil
+pip install cvxpy
 ```
 
 
@@ -345,3 +345,6 @@ sudo apt-get install ros-noetic-openni2-launch
 sudo apt-get install ros-noetic-openni2-camera
 ```
 
+```
+sudo apt install ros-noetic-realsense2-description
+```
