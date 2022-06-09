@@ -8,3 +8,15 @@
 [submodule "ur_description"]
 	path = ur_description
 	url = https://github.com/mfocchi/ur_description.git
+[submodule "aliengo_support/wolf_descriptions"]
+	path = aliengo_support/wolf_descriptions
+	url = git@github.com:mfocchi/wolf_descriptions.git
+[submodule "aliengo_support/wolf_aliengo_interface"]
+	path = aliengo_support/wolf_aliengo_interface
+	url = git@github.com:mfocchi/wolf_aliengo_interface.git
+[submodule "aliengo_support/wolf_gazebo_interface"]
+	path = aliengo_support/wolf_gazebo_interface
+	url = git@github.com:mfocchi/wolf_gazebo_interface.git
+[submodule "aliengo_support/wolf_hardware_interface"]
+	path = aliengo_support/wolf_hardware_interface
+	url = git@github.com:mfocchi/wolf_hardware_interface.git
