@@ -6,7 +6,7 @@ Locosim is composed by a **roscontrol** node called ros_impedance_controller wri
 
 # Usage with a Virtual Machine
 
-Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_descriptions**
+Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_descriptions**. Note that there are 2 Virtual machines available, one for Ubuntu 16 and one for Ubuntu 20. I strongly recommend to use the Ubuntu 20 one, because all the files base_controllerXX.py files are no longer compatible with Ubuntu 16. 
 
 
 
@@ -163,7 +163,7 @@ sudo apt-get install python-termcolor
 ```
 
 ```
-pip install cvxpy
+pip install cvxpy==1.2.0
 ```
 
 
@@ -278,6 +278,14 @@ Once spyder is open, you can use "File->Open" to open a python script, and then 
 Typically option 1 (which is the default choice) does not work, so you should use either option 2 or 3. I typically use option 2, but option 3 is fine as well. If you have already run a file on spyder3 and you want to change the console to use, you can do it via the menu "*Run -> Configuration per file*".
 
 Side note: depending on your OS version, option 2 and/or option 3 also allow you to check the option "*Interact with the Python console after execution*", which is useful to explore the value of the script variables after the execution has ended.
+
+With Pycharm you just need to download and unzip the program here https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC and unzip it. To run type: 
+
+```
+pycharm_folder/bin/pycharm.sh
+```
+
+
 
 
 
