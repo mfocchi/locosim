@@ -247,7 +247,7 @@ cd ~/ros_ws/
 
 
 
-### **Running the software**
+### **Running the software** from terminal
 
 You can execute a python script directly from the terminal using the following command (according to the version of python 2.7 or 3.X you have):
 
@@ -263,7 +263,25 @@ If you want to keep interacting with the interpreter after the execution of the 
 python3 -i script_name.py
 ```
 
-Rather than running scripts from the terminal, it is more convenient to use a customized python editor. For this class we suggest you use the software "spyder/spyedr3" or pycharm. You should run spyder from the terminal by simply typing:
+Rather than running scripts from the terminal, it is more convenient to use a customized python editor. For this class we suggest you use the software "spyder/spyder3" or pycharm (recommended).
+
+
+
+### **Running the software** from Python IDE: Pycharm  
+
+With Pycharm you just need to download and unzip the program here https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC and unzip it. To run type: 
+
+```
+pycharm_folder/bin/pycharm.sh
+```
+
+**IMPORTANT!** To be able to keep the plots **alive** at the end of the program and to have access to variables,  you need to "Edit Configurations..." and tick "Run with Python Console". Otherwise the plot will immediately close.
+
+
+
+### **Running the software** from Python IDE: Spyder 
+
+You should run Spyder from the terminal by simply typing:
 
 ```
 spyder/spyder3
@@ -279,17 +297,7 @@ Typically option 1 (which is the default choice) does not work, so you should us
 
 Side note: depending on your OS version, option 2 and/or option 3 also allow you to check the option "*Interact with the Python console after execution*", which is useful to explore the value of the script variables after the execution has ended.
 
-With Pycharm you just need to download and unzip the program here https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC and unzip it. To run type: 
-
-```
-pycharm_folder/bin/pycharm.sh
-```
-
-
-
-
-
-### **Support for Universal Robots** (only for advanced users, requires ros noetic)
+### **Support for Universal Robots** (only for advanced users, it requires ros noetic)
 
 ```
 sudo apt install ros-noetic-pass-through-controllers
