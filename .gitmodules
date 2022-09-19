@@ -5,6 +5,21 @@
 [submodule "robot_control"]
 	path = robot_control
 	url = https://github.com/mfocchi/robot_control.git
-[submodule "ur_description"]
-	path = ur_description
-	url = https://github.com/mfocchi/ur_description.git
+[submodule "robot_descriptions/climbingrobot_description"]
+	path = robot_descriptions/climbingrobot_description
+	url = git@github.com:mfocchi/climbingrobot_description.git
+[submodule "robot_descriptions/ur_description"]
+	path = robot_descriptions/ur_description
+	url = git@github.com:mfocchi/ur_description.git
+[submodule "robot_descriptions/hyq_description"]
+	path = robot_descriptions/hyq_description
+	url = git@github.com:mfocchi/hyq_description.git
+[submodule "robot_descriptions/jumpleg_description"]
+	path = robot_descriptions/jumpleg_description
+	url = git@github.com:mfocchi/jumpleg_description.git
+[submodule "robot_descriptions/solo_description"]
+	path = robot_descriptions/solo_description
+	url = git@github.com:mfocchi/solo_description.git
+[submodule "robot_descriptions/solo_fw_description"]
+	path = robot_descriptions/solo_fw_description
+	url = git@github.com:mfocchi/solo_fw_description.git
