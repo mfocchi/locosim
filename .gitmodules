@@ -23,3 +23,6 @@
 [submodule "robot_descriptions/solo_fw_description"]
 	path = robot_descriptions/solo_fw_description
 	url = git@github.com:mfocchi/solo_fw_description.git
+[submodule "robot_descriptions/go1_description"]
+	path = robot_descriptions/go1_description
+	url = git@github.com:mfocchi/go1_description.git
