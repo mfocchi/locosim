@@ -22,7 +22,11 @@ First clone the repository inside a ros workspace, then remember to update its s
 git submodule update --init --recursive
 ```
 
-Finally you need to compile the C++ code running in your ros workspace 
+**IMPORTANT NOTE!** you will not be able to checkout the submodules unless you generate and add your SSH key to your Github account, as explained here:
+
+https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key
+
+ Finally you need to compile the C++ code running in your ros workspace 
 
 ```
 catkin_make install

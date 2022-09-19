@@ -1,10 +1,10 @@
 
 [submodule "ros_impedance_controller"]
 	path = ros_impedance_controller
-	url = https://github.com/iit-DLSLab/ros_impedance_controller.git
+	url = git@github.com:mfocchi/ros_impedance_controller.git
 [submodule "robot_control"]
 	path = robot_control
-	url = https://github.com/mfocchi/robot_control.git
+	url = git@github.com:mfocchi/robot_control.git
 [submodule "robot_descriptions/climbingrobot_description"]
 	path = robot_descriptions/climbingrobot_description
 	url = git@github.com:mfocchi/climbingrobot_description.git
