@@ -32,3 +32,6 @@
 [submodule "robot_hardware_interfaces/base_hardware_interface"]
 	path = robot_hardware_interfaces/base_hardware_interface
 	url = git@github.com:mfocchi/base_hardware_interface.git
+[submodule "robot_hardware_interfaces/aliengo_hardware_interface"]
+	path = robot_hardware_interfaces/aliengo_hardware_interface
+	url = git@github.com:mfocchi/aliengo_hardware_interface.git
