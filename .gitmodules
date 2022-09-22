@@ -29,3 +29,6 @@
 [submodule "robot_descriptions/aliengo_description"]
 	path = robot_descriptions/aliengo_description
 	url = git@github.com:mfocchi/aliengo_description.git
+[submodule "robot_hardware_interfaces/base_hardware_interface"]
+	path = robot_hardware_interfaces/base_hardware_interface
+	url = git@github.com:mfocchi/base_hardware_interface.git
