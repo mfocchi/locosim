@@ -26,3 +26,6 @@
 [submodule "robot_descriptions/go1_description"]
 	path = robot_descriptions/go1_description
 	url = git@github.com:mfocchi/go1_description.git
+[submodule "robot_descriptions/aliengo_description"]
+	path = robot_descriptions/aliengo_description
+	url = git@github.com:mfocchi/aliengo_description.git
