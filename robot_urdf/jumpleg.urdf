@@ -12,25 +12,15 @@
       <legacyModeNS>true</legacyModeNS>
       <controlPeriod>0.004</controlPeriod>
     </plugin>
-    <plugin filename="libgazebo_ros_p3d.so" name="gazebo_ros_p3d">
-      <robotNamespace>/jumpleg</robotNamespace>
-      <bodyName>trunk</bodyName>
-      <topicName>ground_truth</topicName>
-      <frameName>world</frameName>
-      <xyzOffsets>0 0 0</xyzOffsets>
-      <rpyOffsets>0 0 0</rpyOffsets>
-      <gaussianNoise>0</gaussianNoise>
-      <alwaysOn>true</alwaysOn>
-      <updateRate>250.0</updateRate>
-    </plugin>
   </gazebo>
+  <!-- torque limits -->
   <link name="world"/>
   <joint name="base_x_joint" type="prismatic">
     <parent link="world"/>
     <child link="fake_link1"/>
     <axis xyz="1 0 0 "/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <limit effort="150" lower="-100" upper="100" velocity="100.0"/>
+    <limit effort="1000" lower="-100" upper="100" velocity="100.0"/>
   </joint>
   <link name="fake_link1">
     <inertial>
@@ -43,7 +33,7 @@
     <child link="fake_link2"/>
     <axis xyz="0 1 0 "/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <limit effort="150" lower="-100" upper="100" velocity="100.0"/>
+    <limit effort="1000" lower="-100" upper="100" velocity="100.0"/>
   </joint>
   <link name="fake_link2">
     <inertial>
@@ -56,7 +46,7 @@
     <child link="base_link"/>
     <axis xyz="0 0 1 "/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <limit effort="150" lower="-100" upper="100" velocity="100.0"/>
+    <limit effort="1000" lower="-100" upper="100" velocity="100.0"/>
   </joint>
   <link name="base_link"/>
   <joint name="floating_base" type="fixed">
@@ -104,7 +94,8 @@
     <!-- limit and placement of the joint -->
     <!-- LF_HAA_JOINT -->
     <!-- lower=-75deg, upper=140, velocity=555.5rpm (=5000rpm motor-side) -->
-    <limit effort="1.2" lower="-1.30899694" upper="2.44346095" velocity="58.17764173"/>
+    <limit effort="10" lower="-1.30899694" upper="2.44346095" velocity="58.17764173"/>
+    <safety_controller k_position="10" k_velocity="1" soft_lower_limit="-1.25" soft_upper_limit="2.43"/>
     <origin rpy="0 0 0" xyz="0 0 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -152,7 +143,8 @@
     <axis xyz="0 1 0"/>
     <!-- LF_HFE_JOINT -->
     <!-- lower=-225deg, upper=90deg, velocity=555.5rpm (=5000rpm motor-side) -->
-    <limit effort="1.2" lower="-3.92699082" upper="1.57079633" velocity="58.17764173"/>
+    <limit effort="10" lower="-3.92699082" upper="1.57079633" velocity="58.17764173"/>
+    <safety_controller k_position="10" k_velocity="1" soft_lower_limit="-3.8" soft_upper_limit="1.53"/>
     <origin rpy="0 0 0" xyz="0 0.014 0"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -200,7 +192,8 @@
     <axis xyz="0 1 0"/>
     <!-- LF_KFE JOINT -->
     <!-- lower=-370deg, upper=370deg, velocity=555.5rpm (=5000rpm motor-side) -->
-    <limit effort="1.2" lower="-6.45771823" upper="6.45771823" velocity="58.17764173"/>
+    <limit effort="10" lower="-6.45771823" upper="6.45771823" velocity="58.17764173"/>
+    <safety_controller k_position="10" k_velocity="1" soft_lower_limit="-6.45771823" soft_upper_limit="6.45771823"/>
     <origin rpy="0 0 0" xyz="0 0.037450000000000004 -0.16"/>
     <!-- pybullet simulation parameters -->
     <dynamics damping="0.0" friction="0.0"/>
@@ -345,7 +338,7 @@
     <maxContacts>1</maxContacts>
     <sensor name="lf_foot_contact_sensor" type="contact">
       <always_on>true</always_on>
-      <update_rate>250.0</update_rate>
+      <update_rate>1000.0</update_rate>
       <contact>
         <collision>lf_lower_leg_fixed_joint_lump__lf_foot_collision_1</collision>
       </contact>
