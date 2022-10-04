@@ -35,3 +35,6 @@
 [submodule "robot_hardware_interfaces/aliengo_hardware_interface"]
 	path = robot_hardware_interfaces/aliengo_hardware_interface
 	url = git@github.com:mfocchi/aliengo_hardware_interface.git
+[submodule "robot_descriptions/gripper_description"]
+	path = robot_descriptions/gripper_description
+	url = git@github.com:mfocchi/gripper_description.git
