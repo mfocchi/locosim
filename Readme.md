@@ -12,7 +12,7 @@ Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzd
 
 # Installation on Ubuntu 16 / Ubuntu 20
 
-IMPORTANT NOTE: 
+### SOFTWARE VERSIONS:
 
 In the following commands, if you are installing for Ubuntu 16, you need to consider **kinetic** as  ROS version, **py27**, and **pip**, for Ubuntu 20, consider **noetic** as ROS version, **py38**  and **pip3**.
 
@@ -25,22 +25,6 @@ git submodule update --init --recursive
 **IMPORTANT NOTE!** you will not be able to checkout the submodules unless you generate and add your SSH key to your Github account, as explained here:
 
 https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key
-
- Finally you need to compile the C++ code running in your ros workspace 
-
-```
-catkin_make install
-```
-
-## Install Spyder python IDE
-
-```
-sudo pip install -Iv spyder==2.3.9
-```
-
-```
-sudo apt install python-pyside
-```
 
 
 
@@ -228,14 +212,14 @@ git submodule update --init --recursive
 gedit  ~/.bashrc
 ```
 
-copy the following lines (at the end of the .bashrc!):
+copy the following lines (at the end of the .bashrc), remember to replace PYTHON_VERSION as explained in [here](#software-versions) :
 
 ```
 source /opt/ros/kinetic/setup.bash
 source $HOME/ros_ws/install/setup.bash
 export PATH=/opt/openrobots/bin:$PATH
 export LOCOSIM_DIR=$HOME/ros_ws/src/locosim
-export PYTHONPATH=/opt/openrobots/lib/python2.7/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH
+export PYTHONPATH=/opt/openrobots/lib/pythonPYTHON_VERSION/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/
 ```
 
@@ -251,55 +235,43 @@ cd ~/ros_ws/
 
 
 
-### **Running the software** from terminal
-
-You can execute a python script directly from the terminal using the following command (according to the version of python 2.7 or 3.X you have):
-
-```
-python/python3 script_name.py
-```
-
-The scripts are located or in the robot_control root or in the robot_control/base_controller folder
-
-If you want to keep interacting with the interpreter after the execution of the script use the following command:
-
-```
-python3 -i script_name.py
-```
-
-Rather than running scripts from the terminal, it is more convenient to use a customized python editor. For this class we suggest you use the software "spyder/spyder3" or pycharm (recommended).
-
-
-
 ### **Running the software** from Python IDE: Pycharm  
 
-With Pycharm you just need to download and unzip the program here https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC and unzip it. To run type: 
+We recommend to use an IDE to run and edit the python files, like Pycharm community. To install it,  you just need to download and unzip the program:
+
+https://download.jetbrains.com/python/pycharm-community-2021.1.1.tar.gz
+
+ and unzip it  *inside* the docker (e.g. copy it inside the `~/trento_lab_home` folder. 
+
+**IMPORTANT**!** I ask you to download this specific version (2021.1.1) that I am sure it works, because the newer ones seem to be failing to load environment variables! 
+
+1) To run Pycharm community type (if you are lazy you can create an alias...): 
 
 ```
-pycharm_folder/bin/pycharm.sh
+$ pycharm_folder/bin/pycharm.sh
 ```
 
-**IMPORTANT!** To be able to keep the plots **alive** at the end of the program and to have access to variables,  you need to "Edit Configurations..." and tick "Run with Python Console". Otherwise the plot will immediately close.
+2) remember to run **pycharm-community** from the terminal otherwise it does not load the environment variables loaded inside the .bashrc.
+
+3) launch one of the labs in locosim/robot_control or in locosim/robot_control/base_controllers  (e.g. base_controller_fixed.py)
+
+4) the first time you run the code be sure you selected the appropriate interpreter /usr/binpython3.8
+
+**IMPORTANT!** To be able to keep the plots **alive** at the end of the program and to have access to variables,  you need to "Edit Configurations..." and tick "Run with Python Console". Otherwise the plot will immediately close. 
 
 
 
-### **Running the software** from Python IDE: Spyder 
+### Running the Software from terminal
 
-You should run Spyder from the terminal by simply typing:
+To run from a terminal we  use the interactive option that allows  when you close the program have access to variables:
 
 ```
-spyder/spyder3
+$ python3 -i $LOCOSIM_DIR/robot_control/base_controllers/base_controller.py
 ```
 
-Once spyder is open, you can use "File->Open" to open a python script, and then click on the "Run file" button (green "play" shape) to execute the script. The first time that you run a script in spyder, you must set up the configuration options. In particular, you must choose the type of console between these 3 options:
+to exit from python3 console type CTRL+Z
 
-1. current console
-2. dedicated console
-3. external system terminal
 
-Typically option 1 (which is the default choice) does not work, so you should use either option 2 or 3. I typically use option 2, but option 3 is fine as well. If you have already run a file on spyder3 and you want to change the console to use, you can do it via the menu "*Run -> Configuration per file*".
-
-Side note: depending on your OS version, option 2 and/or option 3 also allow you to check the option "*Interact with the Python console after execution*", which is useful to explore the value of the script variables after the execution has ended.
 
 ### **Support for Universal Robots** (only for advanced users, it requires ros noetic)
 
