@@ -6,43 +6,22 @@ Locosim is composed by a **roscontrol** node called ros_impedance_controller wri
 
 # Usage with a Virtual Machine
 
-Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_descriptions**. Note that there are 2 Virtual machines available, one for Ubuntu 16 and one for Ubuntu 20. I strongly recommend to use the Ubuntu 20 one, because all the files base_controllerXX.py files are no longer compatible with Ubuntu 16. 
+Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_exercises/lab_descriptions**. Note that there are 2 Virtual machines available, one for Ubuntu 16 and one for Ubuntu 20. I strongly recommend to use the Ubuntu 20 one, because all the files base_controllerXX.py files are no longer compatible with Ubuntu 16. 
 
 
 
 # Installation on Ubuntu 16 / Ubuntu 20
 
-IMPORTANT NOTE: 
+### SOFTWARE VERSIONS:
 
-In the following commands, if you are installing for Ubuntu 16, you need to consider **kinetic** as  ROS version, **py27**, and **pip**, for Ubuntu 20, consider **noetic** as ROS version, **py38**  and **pip3**.
+Locosim is compatible with Ubuntu16 and Ubuntu 18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
 
-First clone the repository inside a ros workspace, then remember to update its submodules  (robot_control and ros_impedance_controller) running this command in the locosim root:
-
-```
-git submodule update --init --recursive
-```
-
-**IMPORTANT NOTE!** you will not be able to checkout the submodules unless you generate and add your SSH key to your Github account, as explained here:
-
-https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key
-
- Finally you need to compile the C++ code running in your ros workspace 
-
-```
-catkin_make install
-```
-
-## Install Spyder python IDE
-
-```
-sudo pip install -Iv spyder==2.3.9
-```
-
-```
-sudo apt install python-pyside
-```
-
-
+| **Ubuntu 16**:         | **Ubuntu 18:           | **Ubuntu 20**:          |
+| ---------------------- | ---------------------- | ----------------------- |
+| PYTHON_PREFIX = python | PYTHON_PREFIX = python | PYTHON_PREFIX = python3 |
+| PYTHON_VERSION = 2.7   | PYTHON_VERSION = 3.5   | PYTHON_VERSION = 3.8    |
+| PIP_PREFIX = pip       | PIP_PREFIX = pip3      | PIP_PREFIX = pip3       |
+| ROS_VERSION = kinetic  | ROS_VERSION = bionic   | ROS_VERSION = noetic    |
 
 ### Pinocchio stuff
 
@@ -63,7 +42,7 @@ sudo apt install curl
 ```
 
 ```
-curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+roscurl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
 ```
 
 ```
@@ -71,11 +50,11 @@ sudo apt-get update
 ```
 
 ```
-sudo apt install robotpkg-py27-eigenpy	
+sudo apt install robotpkg-PYTHON_VERSION-eigenpy	
 ```
 
 ```
-sudo apt install robotpkg-py27-pinocchio
+sudo apt install robotpkg-PYTHON_VERSION-pinocchio
 ```
 
 
@@ -94,48 +73,48 @@ Set up your keys:
 curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -
 ```
 
-Find which ROS version (e.g. "kinetic") is compatible with your Ubuntu version (check here http://wiki.ros.org/Distributions) and replace in ROSVERSION string in the the following command:
+install ROS:
 
 ```
-sudo apt-get install ros-ROSVERSION-desktop-full
+sudo apt-get install ros-ROS_VERSION-desktop-full
 ```
 
 install packages:
 
 ```
-sudo apt-get install ros-$(rosversion -d)-urdfdom-py
+sudo apt-get install ros-ROS_VERSION-urdfdom-py
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-joint-state-publisher
+sudo apt-get install ros-ROS_VERSION-joint-state-publisher
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-joint-state-publisher-gui
+sudo apt-get install ros-ROS_VERSION-joint-state-publisher-gui
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-joint-state-controller 
+sudo apt-get install ros-ROS_VERSION-joint-state-controller 
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-rviz-visual-tools
+sudo apt-get install ros-ROS_VERSION-rviz-visual-tools
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-gazebo-msgs
+sudo apt-get install ros-ROS_VERSION-gazebo-msgs
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-control-toolbox
+sudo apt-get install ros-ROS_VERSION-control-toolbox
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-gazebo-ros
+sudo apt-get install ros-ROS_VERSION-gazebo-ros
 ```
 
 ```
-sudo apt-get install ros-$(rosversion -d)-controller-manager
+sudo apt-get install ros-ROS_VERSION-controller-manager
 ```
 
 
@@ -143,7 +122,7 @@ sudo apt-get install ros-$(rosversion -d)-controller-manager
 ### Install robot urdfs 
 
 ```
-sudo apt install robotpkg-py27-example-robot-data
+sudo apt install robotpkg-PYTHON_VERSION-example-robot-data
 ```
 
 
@@ -151,23 +130,23 @@ sudo apt install robotpkg-py27-example-robot-data
 ###  Python
 
 ```
-sudo apt-get install python-scipy
+sudo apt-get install PTYHON_PREFIX-scipy
 ```
 
 ```
-sudo apt-get install python-matplotlib=2.0.2
+sudo apt-get install PTYHON_PREFIX-matplotlib=2.0.2
 ```
 
 ```
-sudo apt-get install robotpkg-py27-quadprog  
+sudo apt-get install robotpkg-PYTHON_VERSION-quadprog  
 ```
 
 ```
-sudo apt-get install python-termcolor
+sudo apt-get install PTYHON_PREFIX-termcolor
 ```
 
 ```
-pip install cvxpy==1.2.0
+PIP_PREFIX install cvxpy==1.2.0
 ```
 
 
@@ -186,10 +165,10 @@ cd ~/ros_ws/src
 catkin_init_workspace
 ```
 
-This will create ""/opt/ros/$(rosversion -d)/setup.bash" that you add to your .bashrc with the following:
+This will create "/opt/ros/ROS_VERSION/setup.bash" that you add to your .bashrc with the following:
 
 ```
-echo "source /opt/ros/$(rosversion -d)/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/ROS_VERSION/setup.bash" >> ~/.bashrc
 ```
 
 ```
@@ -208,16 +187,38 @@ cd ~/ros_ws/
  cd ~/ros_ws/src/ 
 ```
 
+Now you can clone the repository inside the ros workspace you just created:
+
 ```
 git clone https://github.com/mfocchi/locosim.git
 ```
 
-```
-cd locosim
-```
+**IMPORTANT NOTE!** you will not be able to checkout the submodules unless you generate and add your SSH key to your Github account, as explained here:
+
+https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key
+
+remember to update its submodules  (robot_control and ros_impedance_controller) running this command in the locosim root:
 
 ```
 git submodule update --init --recursive
+```
+
+now recompile again (then this step won't bee needed anymore if you just work in python unless you do not modify / create additional ROS packages)
+
+```
+cd ~/ros_ws/ 
+```
+
+```
+ catkin_make install
+```
+
+the install step install the ros packages inside the "$HOME/ros_ws/install" folder rather than the devel folder. This folder will be added to the ROS_PACKAGE_PATH instead of the devel one.
+
+Finally, run (you should do it any time you add a new ros package)
+
+```
+ rospack profile
 ```
 
 
@@ -228,14 +229,14 @@ git submodule update --init --recursive
 gedit  ~/.bashrc
 ```
 
-copy the following lines (at the end of the .bashrc!):
+copy the following lines (at the end of the .bashrc), remember to replace the string PYTHON_VERSION with the appropriate version name as explained in [software versions](#software-versions) section:
 
 ```
 source /opt/ros/kinetic/setup.bash
 source $HOME/ros_ws/install/setup.bash
 export PATH=/opt/openrobots/bin:$PATH
 export LOCOSIM_DIR=$HOME/ros_ws/src/locosim
-export PYTHONPATH=/opt/openrobots/lib/python2.7/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH
+export PYTHONPATH=/opt/openrobots/lib/pythonPYTHON_VERSION/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/
 ```
 
@@ -251,55 +252,43 @@ cd ~/ros_ws/
 
 
 
-### **Running the software** from terminal
-
-You can execute a python script directly from the terminal using the following command (according to the version of python 2.7 or 3.X you have):
-
-```
-python/python3 script_name.py
-```
-
-The scripts are located or in the robot_control root or in the robot_control/base_controller folder
-
-If you want to keep interacting with the interpreter after the execution of the script use the following command:
-
-```
-python3 -i script_name.py
-```
-
-Rather than running scripts from the terminal, it is more convenient to use a customized python editor. For this class we suggest you use the software "spyder/spyder3" or pycharm (recommended).
-
-
-
 ### **Running the software** from Python IDE: Pycharm  
 
-With Pycharm you just need to download and unzip the program here https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC and unzip it. To run type: 
+We recommend to use an IDE to run and edit the python files, like Pycharm community. To install it,  you just need to download and unzip the program:
+
+https://download.jetbrains.com/python/pycharm-community-2021.1.1.tar.gz
+
+ and unzip it  *inside* the docker (e.g. copy it inside the `~/trento_lab_home` folder. 
+
+**IMPORTANT**! I ask you to download this specific version (2021.1.1) that I am sure it works, because the newer ones seem to be failing to load environment variables! 
+
+1) To run Pycharm community type (if you are lazy you can create an alias...): 
 
 ```
-pycharm_folder/bin/pycharm.sh
+$ pycharm_folder/bin/pycharm.sh
 ```
 
-**IMPORTANT!** To be able to keep the plots **alive** at the end of the program and to have access to variables,  you need to "Edit Configurations..." and tick "Run with Python Console". Otherwise the plot will immediately close.
+2) remember to run **pycharm-community** from the terminal otherwise it does not load the environment variables loaded inside the .bashrc.
+
+3) launch one of the labs in locosim/robot_control or in locosim/robot_control/base_controllers  (e.g. base_controller_fixed.py)
+
+4) the first time you run the code be sure you selected the appropriate interpreter /usr/binpython3.8
+
+**IMPORTANT!** To be able to keep the plots **alive** at the end of the program and to have access to variables,  you need to "Edit Configurations..." and tick "Run with Python Console". Otherwise the plot will immediately close. 
 
 
 
-### **Running the software** from Python IDE: Spyder 
+### Running the Software from terminal
 
-You should run Spyder from the terminal by simply typing:
+To run from a terminal we  use the interactive option that allows  when you close the program have access to variables:
 
 ```
-spyder/spyder3
+$ python3 -i $LOCOSIM_DIR/robot_control/base_controllers/base_controller.py
 ```
 
-Once spyder is open, you can use "File->Open" to open a python script, and then click on the "Run file" button (green "play" shape) to execute the script. The first time that you run a script in spyder, you must set up the configuration options. In particular, you must choose the type of console between these 3 options:
+to exit from python3 console type CTRL+Z
 
-1. current console
-2. dedicated console
-3. external system terminal
 
-Typically option 1 (which is the default choice) does not work, so you should use either option 2 or 3. I typically use option 2, but option 3 is fine as well. If you have already run a file on spyder3 and you want to change the console to use, you can do it via the menu "*Run -> Configuration per file*".
-
-Side note: depending on your OS version, option 2 and/or option 3 also allow you to check the option "*Interact with the Python console after execution*", which is useful to explore the value of the script variables after the execution has ended.
 
 ### **Support for Universal Robots** (only for advanced users, it requires ros noetic)
 
