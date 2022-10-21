@@ -41,3 +41,6 @@
 [submodule "robot_descriptions/myrobot_description"]
 	path = robot_descriptions/myrobot_description
 	url = git@github.com:mfocchi/myrobot_description.git
+[submodule "robot_descriptions/starbot_description"]
+	path = robot_descriptions/starbot_description
+	url = git@github.com:mfocchi/starbot_description.git
