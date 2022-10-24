@@ -16,12 +16,13 @@ Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzd
 
 Locosim is compatible with Ubuntu16 and Ubuntu 18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
 
-| **Ubuntu 16**:         | **Ubuntu 18:           | **Ubuntu 20**:          |
-| ---------------------- | ---------------------- | ----------------------- |
-| PYTHON_PREFIX = python | PYTHON_PREFIX = python | PYTHON_PREFIX = python3 |
-| PYTHON_VERSION = 2.7   | PYTHON_VERSION = 3.5   | PYTHON_VERSION = 3.8    |
-| PIP_PREFIX = pip       | PIP_PREFIX = pip3      | PIP_PREFIX = pip3       |
-| ROS_VERSION = kinetic  | ROS_VERSION = bionic   | ROS_VERSION = noetic    |
+| **Ubuntu 16**:               | **Ubuntu 18:                 | **Ubuntu 20**:               |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| PYTHON_PREFIX = python       | PYTHON_PREFIX = python3      | PYTHON_PREFIX = python3      |
+| PYTHON_VERSION = 2.7         | PYTHON_VERSION = 3.5         | PYTHON_VERSION = 3.8         |
+| ROBOTPKG_PYTHON_VERSION=py27 | ROBOTPKG_PYTHON_VERSION=py35 | ROBOTPKG_PYTHON_VERSION=py38 |
+| PIP_PREFIX = pip             | PIP_PREFIX = pip3            | PIP_PREFIX = pip3            |
+| ROS_VERSION = kinetic        | ROS_VERSION = bionic         | ROS_VERSION = noetic         |
 
 ### Pinocchio stuff
 
@@ -50,11 +51,11 @@ sudo apt-get update
 ```
 
 ```
-sudo apt install robotpkg-PYTHON_VERSION-eigenpy	
+sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-eigenpy	
 ```
 
 ```
-sudo apt install robotpkg-PYTHON_VERSION-pinocchio
+sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-pinocchio
 ```
 
 
@@ -122,7 +123,7 @@ sudo apt-get install ros-ROS_VERSION-controller-manager
 ### Install robot urdfs 
 
 ```
-sudo apt install robotpkg-PYTHON_VERSION-example-robot-data
+sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-example-robot-data
 ```
 
 
@@ -138,7 +139,7 @@ sudo apt-get install PTYHON_PREFIX-matplotlib=2.0.2
 ```
 
 ```
-sudo apt-get install robotpkg-PYTHON_VERSION-quadprog  
+sudo apt-get install robotpkg-PINOCCHIO_PYTHON_VERSION-quadprog  
 ```
 
 ```
