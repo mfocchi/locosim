@@ -1,3 +1,5 @@
+
+
 # What is locosim?
 
 Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo robots are supported) and manipulators (UR5 robot is supported).
@@ -26,7 +28,7 @@ Locosim is compatible with Ubuntu16 and Ubuntu 18/20. The installation instructi
 
 ### Pinocchio stuff
 
-**add robotpkg repositories**
+**Add robotpkg as source repository to apt:**
 
 ```
 sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg' >> /etc/apt/sources.list.d/robotpkg.list"
@@ -39,15 +41,23 @@ sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/d
 **Register the authentication certificate of robotpkg:**
 
 ```
-sudo apt install curl
+sudo apt -qqy lsb-release gnupg2 curl
 ```
 
 ```
-roscurl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
 ```
+
+You need to run at least once apt update to fetch the package descriptions:
 
 ```
 sudo apt-get update
+```
+
+Now you can install Pinocchio and the required libraries:
+
+```
+sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-eigenpy	
 ```
 
 ```
@@ -55,7 +65,7 @@ sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-eigenpy
 ```
 
 ```
-sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-pinocchio
+sudo apt-get install robotpkg-PINOCCHIO_PYTHON_VERSION-quadprog  
 ```
 
 
@@ -136,10 +146,6 @@ sudo apt-get install PTYHON_PREFIX-scipy
 
 ```
 sudo apt-get install PTYHON_PREFIX-matplotlib=2.0.2
-```
-
-```
-sudo apt-get install robotpkg-PINOCCHIO_PYTHON_VERSION-quadprog  
 ```
 
 ```
