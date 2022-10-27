@@ -297,61 +297,39 @@ to exit from python3 console type CTRL+Z
 
 
 
-### **Support for Universal Robots** (only for advanced users, it requires ros noetic)
+### **Support for Universal Robots**
+
+These packages are needed if you are willing to perform simulations with the Ur5 robot:
 
 ```
-sudo apt install ros-noetic-pass-through-controllers
-```
-
-```
-sudo apt install ros-noetic-moveit-core
-```
-
-```
-sudo apt install ros-noetic-moveit-kinematics
+sudo apt install ros-ROS_VERSION-joint-trajectory-controller
 ```
 
 ```
-sudo apt install ros-noetic-ur-msgs
+sudo apt install ros-ROS_VERSION-scaled-joint-trajectory-controller
+```
+
+If you want to do experiments with the real robot you need to install these additional packages:
+
+```
+sudo apt install ros-ROS_VERSION-ur-msgs
 ```
 
 ```
-sudo apt install ros-noetic-ur-robots-driver
+sudo apt install ros-ROS_VERSION-scaled-joint-trajectory-controller
 ```
 
-```
-sudo apt install ros-noetic-speed-scaling-state-controller
-```
+plus clone the ur_robot_driver package wherever inside the ros_ws/src folder:
 
 ```
-sudo apt install ros-noetic-speed-scaling-interface
-```
-
-```
-sudo apt install ros-noetic-speed-scaling-state-controller
-```
-
-```
-sudo apt install ros-noetic-speed-scaling-interface
-```
-
-```
-sudo apt install ros-noetic-ur-client-library
-```
-
-```
-sudo apt install ros-noetic-scaled-joint-trajectory-controller
-```
-
-```
-sudo apt install ros-noetic-pass-through-controllers
+git clone git@github.com:mfocchi/universal_robots_ros_driver.git
 ```
 
 
 
-**Support for Realsense camera (Simulation)**
+**Support for Realsense camera (simulation)**
 
-This packages are needed if you want to see the PointCloud published by a realsense camera attached at the endeffector. To activate it, you should load the ur5 with the flag "vision_sensor:=true"
+This packages are needed if you want to see the PointCloud published by a realsense camera attached at the endeffector. To activate it, you should load the xacro of the ur5 with the flag "vision_sensor:=true". 
 
 ```
 sudo apt-get install ros-noetic-openni2-launch
