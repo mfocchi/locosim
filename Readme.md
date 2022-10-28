@@ -8,7 +8,16 @@ Locosim is composed by a **roscontrol** node called ros_impedance_controller wri
 
 # Usage with a Virtual Machine
 
-Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_exercises/lab_descriptions**. Note that there are 2 Virtual machines available, one for Ubuntu 16 and one for Ubuntu 20. I strongly recommend to use the Ubuntu 20 one, because all the files base_controllerXX.py files are no longer compatible with Ubuntu 16. 
+Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_exercises/lab_descriptions**. Note that there are 2 Virtual machines available, one for Ubuntu 16 and one for Ubuntu 20. I strongly recommend to use the Ubuntu 20 one, because all the files base_controllerXX.py files are no longer compatible with Ubuntu 16.
+
+##### **IMPORTANT NOTE:** 
+
+Most of virtual machines including Virtualbox, do not have support for GPU. This means that if you run Gazebo Graphical User Interface (GUI) it can become very **slow**. A way to mitigate this is to avoid to start the  Gazebo GUI and only start the gzserver process that will compute the dynamics, you will keep the visualization in Rviz. This is referred to planners that employ BaseController or BaseControllerFixed classes. In the Python code where you start the simulator you need to pass this additional argument as follows:
+
+```
+additional_args = 'gui:=false'
+p.startSimulator(..., additional_args =additional_args)
+```
 
 
 
