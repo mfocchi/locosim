@@ -86,10 +86,6 @@ sudo apt-get install ros-ROS_VERSION-joint-state-controller
 ```
 
 ```
-sudo apt-get install ros-ROS_VERSION-rviz-visual-tools
-```
-
-```
 sudo apt-get install ros-ROS_VERSION-gazebo-msgs
 ```
 
