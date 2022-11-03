@@ -8,7 +8,7 @@ Locosim is composed by a **roscontrol** node called ros_impedance_controller wri
 
 # Usage with a Virtual Machine
 
-Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) and run the lab experiments that are present in  **robot_control/lab_exercises/lab_descriptions**. Note that there are 2 Virtual machines available, one for Ubuntu 16 and one for Ubuntu 20. I strongly recommend to use the Ubuntu 20 one, because all the files base_controllerXX.py files are no longer compatible with Ubuntu 16.
+Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) for Ubuntu 20 and run the lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. The virtual machine contains **both** the code and the required dependencies already installed.
 
 ##### **IMPORTANT NOTE:** 
 
@@ -21,61 +21,25 @@ p.startSimulator(..., additional_args =additional_args)
 
 
 
-# Installation on Ubuntu 16 / Ubuntu 20
+# Usage with Docker
+
+You can alternatively use a docker image with Ubuntu 20 and all the required dependencies already installed (you will need only to clone the code and compile it), by following this  [wiki](https://github.com/mfocchi/lab-docker). Docker has been tested to work with windows machines, Linux and old MACs (not ARM processors). 
+
+
+
+# Native Installation on LINUX
 
 ### SOFTWARE VERSIONS:
 
-Locosim is compatible with Ubuntu16 and Ubuntu 18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
+Locosim is compatible with Ubuntu 16/18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
 
-| **Ubuntu 16**:               | **Ubuntu 18:                 | **Ubuntu 20**:               |
+| **Ubuntu 16**:               | Ubuntu 18:                   | **Ubuntu 20**:               |
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | PYTHON_PREFIX = python       | PYTHON_PREFIX = python3      | PYTHON_PREFIX = python3      |
 | PYTHON_VERSION = 2.7         | PYTHON_VERSION = 3.5         | PYTHON_VERSION = 3.8         |
 | ROBOTPKG_PYTHON_VERSION=py27 | ROBOTPKG_PYTHON_VERSION=py35 | ROBOTPKG_PYTHON_VERSION=py38 |
 | PIP_PREFIX = pip             | PIP_PREFIX = pip3            | PIP_PREFIX = pip3            |
 | ROS_VERSION = kinetic        | ROS_VERSION = bionic         | ROS_VERSION = noetic         |
-
-### Pinocchio stuff
-
-**Add robotpkg as source repository to apt:**
-
-```
-sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg' >> /etc/apt/sources.list.d/robotpkg.list"
-```
-
-```
-sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg' >> /etc/apt/sources.list.d/robotpkg.list"
-```
-
-**Register the authentication certificate of robotpkg:**
-
-```
-sudo apt -qqy lsb-release gnupg2 curl
-```
-
-```
-curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
-```
-
-You need to run at least once apt update to fetch the package descriptions:
-
-```
-sudo apt-get update
-```
-
-Now you can install Pinocchio and the required libraries:
-
-```
-sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-eigenpy	
-```
-
-```
-sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-eigenpy	
-```
-
-```
-sudo apt-get install robotpkg-PINOCCHIO_PYTHON_VERSION-quadprog  
-```
 
 
 
@@ -103,6 +67,10 @@ install packages:
 
 ```
 sudo apt-get install ros-ROS_VERSION-urdfdom-py
+```
+
+```
+sudo apt-get install ros-ROS_VERSION-srdfdom
 ```
 
 ```
@@ -143,6 +111,56 @@ sudo apt-get install ros-ROS_VERSION-controller-manager
 
 ```
 sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-example-robot-data
+```
+
+
+
+### Pinocchio stuff
+
+**Add robotpkg as source repository to apt:**
+
+```
+sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/packages/debian/pub $(lsb_release -sc) robotpkg' >> /etc/apt/sources.list.d/robotpkg.list"
+```
+
+```
+sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/debian/pub $(lsb_release -sc) robotpkg' >> /etc/apt/sources.list.d/robotpkg.list"
+```
+
+**Register the authentication certificate of robotpkg:**
+
+```
+sudo apt -qqy lsb-release gnupg2 curl
+```
+
+```
+curl http://robotpkg.openrobots.org/packages/debian/robotpkg.key | sudo apt-key add -
+```
+
+You need to run at least once apt update to fetch the package descriptions:
+
+```
+sudo apt-get update
+```
+
+Now you can install Pinocchio and the required libraries:
+
+```
+sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-eigenpy	
+```
+
+```
+sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-pinocchio
+```
+
+```
+sudo apt-get install robotpkg-PINOCCHIO_PYTHON_VERSION-quadprog  
+```
+
+**NOTE:** If you have issues in installing robotpkg libraries you can try to install them through ROS as:
+
+```
+sudo apt-get install ros-ROS_VERSION-LIBNAME
 ```
 
 
