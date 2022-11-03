@@ -164,15 +164,15 @@ sudo apt-get install ros-ROS_VERSION-LIBNAME
 ###  Python
 
 ```
-sudo apt-get install PTYHON_PREFIX-scipy
+sudo apt-get install PYTHON_PREFIX-scipy
 ```
 
 ```
-sudo apt-get install PTYHON_PREFIX-matplotlib=2.0.2
+sudo apt-get install PYTHON_PREFIX-matplotlib=2.0.2
 ```
 
 ```
-sudo apt-get install PTYHON_PREFIX-termcolor
+sudo apt-get install PYTHON_PREFIX-termcolor
 ```
 
 ```
@@ -181,7 +181,7 @@ PIP_PREFIX install cvxpy==1.2.0
 
 
 
-### Download code and Setup ros workspace
+### Download code and setup ROS workspace
 
 ```
 mkdir -p ~/ros_ws/src
@@ -217,7 +217,7 @@ cd ~/ros_ws/
  cd ~/ros_ws/src/ 
 ```
 
-Now you can clone the repository inside the ros workspace you just created:
+Now you can clone the repository inside the ROS workspace you just created:
 
 ```
 git clone https://github.com/mfocchi/locosim.git
@@ -326,10 +326,6 @@ These packages are needed if you are willing to perform simulations with the Ur5
 
 ```
 sudo apt install ros-ROS_VERSION-joint-trajectory-controller
-```
-
-```
-sudo apt install ros-ROS_VERSION-scaled-joint-trajectory-controller
 ```
 
 If you want to do experiments with the real robot you need to install these additional packages:
