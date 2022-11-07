@@ -262,7 +262,7 @@ gedit  ~/.bashrc
 copy the following lines (at the end of the .bashrc), remember to replace the string PYTHON_VERSION with the appropriate version name as explained in [software versions](#software-versions) section:
 
 ```
-source /opt/ros/kinetic/setup.bash
+source /opt/ros/ROS_VERSION/setup.bash
 source $HOME/ros_ws/install/setup.bash
 export PATH=/opt/openrobots/bin:$PATH
 export LOCOSIM_DIR=$HOME/ros_ws/src/locosim
