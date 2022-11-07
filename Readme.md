@@ -300,9 +300,9 @@ $ pycharm_folder/bin/pycharm.sh
 
 2) remember to run **pycharm-community** from the terminal otherwise it does not load the environment variables loaded inside the .bashrc.
 
-3) launch one of the labs in locosim/robot_control or in locosim/robot_control/base_controllers  (e.g. base_controller_fixed.py)
+3) click "Open File or Project" and open the folder robot_control. Then launch one of the labs in locosim/robot_control/lab_exercises or in locosim/robot_control/base_controllers  (e.g. base_controller_fixed.py)  right click on the code and selecting "Run File in Pyhton Console"
 
-4) the first time you run the code be sure you selected the appropriate interpreter /usr/binpython3.8
+4) the first time you run the code you will be suggested to select the appropriate interpreter (/usr/binpython3.8). Following this procedure you will be sure that the run setting will be stored, next time that you start Pycharm.
 
 **IMPORTANT!** To be able to keep the plots **alive** at the end of the program and to have access to variables,  you need to "Edit Configurations..." and tick "Run with Python Console". Otherwise the plot will immediately close. 
 
