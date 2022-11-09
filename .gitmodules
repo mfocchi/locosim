@@ -44,3 +44,6 @@
 [submodule "robot_descriptions/starbot_description"]
 	path = robot_descriptions/starbot_description
 	url = git@github.com:mfocchi/starbot_description.git
+[submodule "robot_hardware_interfaces/go1_hardware_interface"]
+	path = robot_hardware_interfaces/go1_hardware_interface
+	url = git@github.com:mfocchi/go1_hardware_interface.git
