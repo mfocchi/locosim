@@ -2,7 +2,11 @@
 
 # What is locosim?
 
-Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo robots are supported) and manipulators (UR5 robot is supported).
+Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo/Aliengo/Go1 robots are supported) and manipulators (UR5 robot is supported). Locosim has been succesfully tested on Ur5, Aliengo and Go1 robots and to my knowledge is the first Easy-to-use interface to the new Unitree Quadruped robot Go1. If you just bought one and you want to give a try follow this wiki.
+
+
+
+ 
 
 Locosim is composed by a **roscontrol** node called ros_impedance_controller written in C++ that interfaces the python ros node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For the controller plotting / logging utilities are available to evaluate the results and a config file (LX_conf.py) to change the controller parameters. 
 
@@ -161,6 +165,18 @@ sudo apt-get install ros-ROS_VERSION-LIBNAME
 
 
 
+### **Other** (needed if you use go1 real robot)
+
+```
+sudo apt-get install apt-get install liblcms2-2
+```
+
+```
+sudo apt-get install apt-get install liblcms-bin
+```
+
+
+
 ###  Python
 
 ```
@@ -269,6 +285,8 @@ export LOCOSIM_DIR=$HOME/ros_ws/src/locosim
 export PYTHONPATH=/opt/openrobots/lib/pythonPYTHON_VERSION/site-packages:$LOCOSIM_DIR/robot_control:$PYTHONPATH
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/
 ```
+
+**NOTE**: people with some operating systems like ARCH LINUX, might need to add "export ROS_IP=127.0.0.1" to the .bashrc.
 
 #### Compile the code
 
