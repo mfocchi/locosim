@@ -2,13 +2,11 @@
 
 # What is locosim?
 
-Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo/Aliengo/Go1 robots are supported) and manipulators (UR5 robot is supported). Locosim has been succesfully tested on Ur5, Aliengo and Go1 robots and to my knowledge is the first Easy-to-use interface to the new Unitree Quadruped robot Go1. If you just bought one and you want to give a try follow this wiki.
+Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo/Aliengo/Go1 robots are supported) and manipulators (UR5 robot is supported). Locosim has been successfully tested on Ur5, Aliengo and Go1 robots and to my knowledge is the first Easy-to-Use interface to the new Unitree Quadruped robot Go1. If you just bought one Go1 robot and you want to give a try, follow this [wiki](https://github.com/mfocchi/locosim/blob/develop/go1_setup.md)!
+
+Locosim is composed by a **roscontrol** node called **ros_impedance_controller** (written in C++) that interfaces the python ros node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For each controller, plotting / logging utilities are available to evaluate the results together with a configuration file (LX_conf.py) to change the controller parameters. 
 
 
-
- 
-
-Locosim is composed by a **roscontrol** node called ros_impedance_controller written in C++ that interfaces the python ros node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For the controller plotting / logging utilities are available to evaluate the results and a config file (LX_conf.py) to change the controller parameters. 
 
 # Usage with a Virtual Machine
 
@@ -61,13 +59,13 @@ Set up your keys:
 curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -
 ```
 
-install ROS:
+install ROS main distro:
 
 ```
 sudo apt-get install ros-ROS_VERSION-desktop-full
 ```
 
-install packages:
+install ROS packages:
 
 ```
 sudo apt-get install ros-ROS_VERSION-urdfdom-py
