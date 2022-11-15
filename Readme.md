@@ -12,15 +12,6 @@ Locosim is composed by a **roscontrol** node called **ros_impedance_controller**
 
 Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) for Ubuntu 20 and run the lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. The virtual machine contains **both** the code and the required dependencies already installed.
 
-##### **IMPORTANT NOTE:** 
-
-Most of virtual machines including Virtualbox, do not have support for GPU. This means that if you run Gazebo Graphical User Interface (GUI) it can become very **slow**. A way to mitigate this is to avoid to start the  Gazebo GUI and only start the gzserver process that will compute the dynamics, you will keep the visualization in Rviz. This is referred to planners that employ BaseController or BaseControllerFixed classes. In the Python code where you start the simulator you need to pass this additional argument as follows:
-
-```
-additional_args = 'gui:=false'
-p.startSimulator(..., additional_args =additional_args)
-```
-
 
 
 # Usage with Docker
@@ -101,14 +92,6 @@ sudo apt-get install ros-ROS_VERSION-gazebo-ros
 
 ```
 sudo apt-get install ros-ROS_VERSION-controller-manager
-```
-
-
-
-### Install robot urdfs 
-
-```
-sudo apt install robotpkg-PINOCCHIO_PYTHON_VERSION-example-robot-data
 ```
 
 
@@ -362,18 +345,68 @@ git clone git@github.com:mfocchi/universal_robots_ros_driver.git
 
 
 
-**Support for Realsense camera (simulation)**
+### **Support to simulate Grasping **
+
+Unfortunately grasping in Gazebo is still an open issue, I impelented grasping using this [plugin]( https://github.com/JenniferBuehler/gazebo-pkgs/wiki/Installation) that creates a fixed link between the gripper and the object to be grasped. To activate the grasping plugin set gripper_sim parameter to True in your configuration file. The following dependencies are required:
+
+```
+sudo apt-get install ros-ROS_VERSION-eigen-conversions 
+```
+
+```
+sudo apt-get install ros-ROS_VERSION-object-recognition-msgs
+```
+
+```
+sudo apt install ros-ROS_VERSION-roslint
+```
+
+
+
+### **Support for Realsense camera (simulation)**
 
 This packages are needed if you want to see the PointCloud published by a realsense camera attached at the endeffector. To activate it, you should load the xacro of the ur5 with the flag "vision_sensor:=true". 
 
 ```
-sudo apt-get install ros-noetic-openni2-launch
+sudo apt-get install ros-ROS_VERSION-openni2-launch
 ```
 
 ```
-sudo apt-get install ros-noetic-openni2-camera
+sudo apt-get install ros-ROS_VERSION-openni2-camera
 ```
 
 ```
-sudo apt install ros-noetic-realsense2-description
+sudo apt install ros-ROS_VERSION-realsense2-description
 ```
+
+
+
+### Tips and Tricks 
+
+1) Most of virtual machines including Virtualbox, do not have support for GPU. This means that if you run Gazebo Graphical User Interface (GUI) it can become very **slow**. A way to mitigate this is to avoid to start the  Gazebo GUI and only start the gzserver process that will compute the dynamics, you will keep the visualization in Rviz. This is referred to planners that employ BaseController or BaseControllerFixed classes. In the Python code where you start the simulator you need to pass this additional argument as follows:
+
+```
+additional_args = 'gui:=false'
+p.startSimulator(..., additional_args =additional_args)
+```
+
+2) Another annoying point is the default timeout to kill Gazebo that is by default very long. You can change it (e.g. to 0.1s) by setting the  _TIMEOUT_SIGINT _TIMEOUT_SIGTERM:
+
+```
+sudo gedit /opt/ros/ROS_VERSION/lib/pythonPYTHON_VERSION/dist-packages/roslaunch/nodeprocess.py:
+```
+
+ this will cause ROS to send a `kill` signal much sooner.
+
+3) if you get this annoying warning: 
+
+```
+Warning: TF_REPEATED_DATA ignoring data with redundant timestamp for frame...
+```
+
+a dirty hack to fix it is to clone this repository in your workspace:
+
+```
+git clone --branch throttle-tf-repeated-data-error git@github.com:BadgerTechnologies/geometry2.git
+```
+
