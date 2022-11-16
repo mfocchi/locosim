@@ -1,18 +1,18 @@
 
 
-# What is locosim?
+# What is Locosim?
 
 Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo/Aliengo/Go1 robots are supported) and manipulators (UR5 robot is supported). Locosim has been successfully tested on Ur5, Aliengo and Go1 robots and to my knowledge is the first Easy-to-Use interface to the new Unitree Quadruped robot Go1. If you just bought one Go1 robot and you want to give a try, follow this [wiki](https://github.com/mfocchi/locosim/blob/develop/go1_setup.md)!
 
 Locosim is composed by a **roscontrol** node called **ros_impedance_controller** (written in C++) that interfaces the python ros node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For each controller, plotting / logging utilities are available to evaluate the results together with a configuration file (LX_conf.py) to change the controller parameters. 
 
-
+You have 3 ways to install Locosim code with all its dependencies: 1) with a virtual machine 2) with docker 3) by manual installation of dependencies.
 
 # Usage with a Virtual Machine
 
-Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) for Ubuntu 20 and run the lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. The virtual machine contains **both** the code and the required dependencies already installed.
+Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) for Ubuntu 20 and run the lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. The virtual machine contains **both** the code and the required dependencies already installed. 
 
-
+**COMPATIBILITY ISSUES:** This virtual machine works with x86-64 processors, for new MAC M1/M2 that employ ARM  processors, the only solution is to install a  [parallel/multipass](https://github.com/mfocchi/lab-docker/blob/master/multipass.md) virtual machine and install natively all the [dependencies](https://github.com/mfocchi/locosim)  inside there. Remember that on MAC you need to replace "sudo apt  install package_name" with "brew install package_name". The easiest way is to follow a detailed wiki [here](https://github.com/NatFederico/roboticsVM), made by Federico Natali.
 
 # Usage with Docker
 
@@ -34,7 +34,7 @@ Locosim is compatible with Ubuntu 16/18/20. The installation instructions have b
 | PIP_PREFIX = pip             | PIP_PREFIX = pip3            | PIP_PREFIX = pip3            |
 | ROS_VERSION = kinetic        | ROS_VERSION = bionic         | ROS_VERSION = noetic         |
 
-
+**NOTE:** ROS is no longer supported (only ROS2) on Ubuntu 22 hence is not possible to install Locosim on Ubuntu 22.
 
 ### Install ROS 
 
