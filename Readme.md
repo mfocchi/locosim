@@ -192,14 +192,10 @@ cd ~/ros_ws/src
 catkin_init_workspace
 ```
 
-This will create "/opt/ros/ROS_VERSION/setup.bash" that you add to your .bashrc with the following:
+Now you need to call the following line manually (next you will see that it will be done automatically in the .bashrc)
 
 ```
-echo "source /opt/ros/ROS_VERSION/setup.bash" >> ~/.bashrc
-```
-
-```
-source ~/.bashrc
+source /opt/ros/ROS_VERSION/setup.bash
 ```
 
 ```
@@ -267,6 +263,8 @@ export PYTHONPATH=/opt/openrobots/lib/pythonPYTHON_VERSION/site-packages:$LOCOSI
 export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/opt/openrobots/share/
 ```
 
+the .bashrc is a file that is **automatically** sourced whenever you open a new terminal.
+
 **NOTE**: people with some operating systems like ARCH LINUX, might need to add "export ROS_IP=127.0.0.1" to the .bashrc.
 
 #### Compile the code
@@ -277,6 +275,14 @@ cd ~/ros_ws/
 
 ```
  catkin_make install 
+```
+
+**IMPORTANT!**
+
+The first time you compile the code the install folder is not existing, therefore won't be added to the PYTHONPATH with the command **source $HOME/ros_ws/install/setup.bash**, and you won't be able to import the package ros_impedance_controller. Therefore, **only once**, after the first time that you compile, run again :
+
+```
+source .bashrc
 ```
 
 
