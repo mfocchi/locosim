@@ -10,9 +10,15 @@ You have 3 ways to install Locosim code with all its dependencies: 1) with a vir
 
 # Usage with a Virtual Machine
 
-Download the following [virtual machine](https://www.dropbox.com/sh/5trh0s5y1xzdjds/AACchznJb7606MbQKb6-fUiUa) (made for VirtualBox) for Ubuntu 20 and run the lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. The virtual machine contains **both** the code and the required dependencies already installed. 
+First install the free software VMWare Player (the "player" keyword is for free personal use in the VMware software). For Linux / Windows system you can find it  [here](https://www.vmware.com/it/products/workstation-player/workstation-player-evaluation.html) for MAC  [here](https://customerconnect.vmware.com/en/evalcenter?p=fusion-player-personal-13) (you need to create an account I am sorry).
 
-**COMPATIBILITY ISSUES:** This virtual machine works with x86-64 processors, for new MAC M1/M2 that employ ARM  processors, the only solution is to install a  [parallel/multipass](https://github.com/mfocchi/lab-docker/blob/master/multipass.md) virtual machine and install natively all the [dependencies](https://github.com/mfocchi/locosim)  inside there. Remember that on MAC you need to replace "sudo apt  install package_name" with "brew install package_name". The easiest way is to follow a detailed wiki [here](https://github.com/NatFederico/roboticsVM), made by Federico Natali.
+Then, download the following [virtual machine](https://www.dropbox.com/scl/fo/tjwfcjwnenqgtsakohdfy/h?dl=0&rlkey=lg1fdkn6k0thveg4efuwoh3kn) and run the file **VM ROBO.vmx** to open it. You  will have now a fully working Ubuntu 20 system with all the needed dependencies, code and Pycharm IDE already installed.  The lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. 
+
+**IMPORTANT NOTE!** To be able to update the submodules you need to generate you SSH key inside the virtual machine a store it in your Github account as explained  [here](https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key).
+
+**COMPATIBILITY ISSUES:** This virtual machine works with x86-64 processors, but not for new MAC M1/M2 that employ ARM  processors, the only solution is to install a  [parallel/multipass](https://github.com/mfocchi/lab-docker/blob/master/multipass.md) virtual machine and install natively all the [dependencies](https://github.com/mfocchi/locosim#native-installation-on-linux)  inside there. Remember that on MAC you need to replace "sudo apt  install package_name" with "brew install package_name". The easiest way is to follow a detailed wiki [here](https://github.com/NatFederico/roboticsVM), made by Federico Natali.
+
+
 
 # Usage with Docker
 
@@ -94,6 +100,44 @@ sudo apt-get install ros-ROS_VERSION-gazebo-ros
 sudo apt-get install ros-ROS_VERSION-controller-manager
 ```
 
+```
+sudo apt install ros-ROS_VERSION-joint-trajectory-controller
+```
+
+### **Support for Realsense camera (simulation)**
+
+This packages are needed if you want to see the PointCloud published by a realsense camera attached at the endeffector. To activate it, you should load the xacro of the ur5 with the flag "vision_sensor:=true". 
+
+```
+sudo apt-get install ros-ROS_VERSION-openni2-launch
+```
+
+```
+sudo apt-get install ros-ROS_VERSION-openni2-camera
+```
+
+```
+sudo apt install ros-ROS_VERSION-realsense2-description
+```
+
+### **Support to simulate Grasping**
+
+Unfortunately grasping in Gazebo is still an open issue, I impelented grasping using this [plugin]( https://github.com/JenniferBuehler/gazebo-pkgs/wiki/Installation) that creates a fixed link between the gripper and the object to be grasped. To activate the grasping plugin set gripper_sim parameter to True in your configuration file. The following dependencies are required:
+
+```
+sudo apt-get install ros-ROS_VERSION-eigen-conversions 
+```
+
+```
+sudo apt-get install ros-ROS_VERSION-object-recognition-msgs
+```
+
+```
+sudo apt install ros-ROS_VERSION-roslint
+```
+
+You can check which parameters have to be tuned looking to the following [wiki]( https://github-wiki-see.page/m/JenniferBuehler/gazebo-pkgs/wiki/The-Gazebo-grasp-fix-plugin) 
+
 
 
 ### Pinocchio stuff
@@ -111,7 +155,7 @@ sudo sh -c "echo 'deb [arch=amd64] http://robotpkg.openrobots.org/wip/packages/d
 **Register the authentication certificate of robotpkg:**
 
 ```
-sudo apt -qqy lsb-release gnupg2 curl
+sudo apt install -qqy lsb-release gnupg2 curl
 ```
 
 ```
@@ -146,18 +190,6 @@ sudo apt-get install ros-ROS_VERSION-LIBNAME
 
 
 
-### **Other** (needed if you use go1 real robot)
-
-```
-sudo apt-get install apt-get install liblcms2-2
-```
-
-```
-sudo apt-get install apt-get install liblcms-bin
-```
-
-
-
 ###  Python
 
 ```
@@ -165,11 +197,15 @@ sudo apt-get install PYTHON_PREFIX-scipy
 ```
 
 ```
-sudo apt-get install PYTHON_PREFIX-matplotlib=2.0.2
+sudo apt-get install PYTHON_PREFIX-matplotlib
 ```
 
 ```
 sudo apt-get install PYTHON_PREFIX-termcolor
+```
+
+```
+sudo apt install python3-pip
 ```
 
 ```
@@ -180,16 +216,14 @@ PIP_PREFIX install cvxpy==1.2.0
 
 ### Download code and setup ROS workspace
 
+Now that you installed all the dependencies you are ready to get the code, but first you need to create a ros workspace to out the code in:
+
 ```
 mkdir -p ~/ros_ws/src
 ```
 
 ```
 cd ~/ros_ws/src
-```
-
-```
-catkin_init_workspace
 ```
 
 Now you need to call the following line manually (next you will see that it will be done automatically in the .bashrc)
@@ -216,15 +250,13 @@ Now you can clone the repository inside the ROS workspace you just created:
 git clone https://github.com/mfocchi/locosim.git
 ```
 
-**IMPORTANT NOTE!** you will not be able to checkout the submodules unless you generate and add your SSH key to your Github account, as explained here:
-
-https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key
-
 remember to update its submodules  (robot_control and ros_impedance_controller) running this command in the locosim root:
 
 ```
 git submodule update --init --recursive
 ```
+
+**IMPORTANT NOTE!** you will not be able to checkout the submodules unless you generate and add your SSH key to your Github account, as explained [here](https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key).
 
 now recompile again (then this step won't bee needed anymore if you just work in python unless you do not modify / create additional ROS packages)
 
@@ -243,6 +275,8 @@ Finally, run (you should do it any time you add a new ros package)
 ```
  rospack profile
 ```
+
+There are some additional utilities that I strongly suggest to install. You can find the list  [here](https://github.com/mfocchi/locosim/blob/develop/utils.md).
 
 
 
@@ -325,15 +359,13 @@ to exit from python3 console type CTRL+Z
 
 
 
-### **Support for Universal Robots**
+### **Using the real robots: **
 
-These packages are needed if you are willing to perform simulations with the Ur5 robot:
+These packages are needed if you are willing to do experiments with the **real** robots
 
-```
-sudo apt install ros-ROS_VERSION-joint-trajectory-controller
-```
+#### **Universal Robots**
 
-If you want to do experiments with the real robot you need to install these additional packages:
+With the Ur5 robot you need to install these additional packages:
 
 ```
 sudo apt install ros-ROS_VERSION-ur-msgs
@@ -349,40 +381,14 @@ plus clone the ur_robot_driver package wherever inside the ros_ws/src folder:
 git clone git@github.com:mfocchi/universal_robots_ros_driver.git
 ```
 
-
-
-### **Support to simulate Grasping **
-
-Unfortunately grasping in Gazebo is still an open issue, I impelented grasping using this [plugin]( https://github.com/JenniferBuehler/gazebo-pkgs/wiki/Installation) that creates a fixed link between the gripper and the object to be grasped. To activate the grasping plugin set gripper_sim parameter to True in your configuration file. The following dependencies are required:
+#### go1
 
 ```
-sudo apt-get install ros-ROS_VERSION-eigen-conversions 
+sudo apt-get install apt-get install liblcms2-2
 ```
 
 ```
-sudo apt-get install ros-ROS_VERSION-object-recognition-msgs
-```
-
-```
-sudo apt install ros-ROS_VERSION-roslint
-```
-
-
-
-### **Support for Realsense camera (simulation)**
-
-This packages are needed if you want to see the PointCloud published by a realsense camera attached at the endeffector. To activate it, you should load the xacro of the ur5 with the flag "vision_sensor:=true". 
-
-```
-sudo apt-get install ros-ROS_VERSION-openni2-launch
-```
-
-```
-sudo apt-get install ros-ROS_VERSION-openni2-camera
-```
-
-```
-sudo apt install ros-ROS_VERSION-realsense2-description
+sudo apt-get install apt-get install liblcms-bin
 ```
 
 
@@ -396,10 +402,10 @@ additional_args = 'gui:=false'
 p.startSimulator(..., additional_args =additional_args)
 ```
 
-2) Another annoying point is the default timeout to kill Gazebo that is by default very long. You can change it (e.g. to 0.1s) by setting the  _TIMEOUT_SIGINT _TIMEOUT_SIGTERM:
+2) Another annoying point is the default timeout to kill Gazebo that is by default very long. You can change it (e.g. to 0.1s) by setting the  _TIMEOUT_SIGINT = 0.1 and _TIMEOUT_SIGTERM = 0.1:
 
 ```
-sudo gedit /opt/ros/ROS_VERSION/lib/pythonPYTHON_VERSION/dist-packages/roslaunch/nodeprocess.py:
+sudo gedit /opt/ros/ROS_VERSION/lib/PYTHON_PREFIX/dist-packages/roslaunch/nodeprocess.py
 ```
 
  this will cause ROS to send a `kill` signal much sooner.
