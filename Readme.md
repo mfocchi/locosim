@@ -301,7 +301,9 @@ the .bashrc is a file that is **automatically** sourced whenever you open a new 
 
 **NOTE**: people with some operating systems like ARCH LINUX, might need to add "export ROS_IP=127.0.0.1" to the .bashrc.
 
-#### Compile the code
+#### Compile/Install the code
+
+Whenever you modify some of the ROS packages (e.g. the ones that contain the xacro fles inside the robot_description folder), you need to install them to be sure they are been updated in the ROS install folder. 
 
 ```
 cd ~/ros_ws/ 
