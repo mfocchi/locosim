@@ -361,27 +361,74 @@ to exit from python3 console type CTRL+Z
 
 
 
-### **Using the real robots: **
+### Using the real robots: 
 
 These packages are needed if you are willing to do experiments with the **real** robots
 
 #### **Universal Robots**
 
-With the Ur5 robot you need to install these additional packages:
+The driver for the UR5 has already been included in Locosim but is not compiled by default, hence you need to:
+
+1. remove file [CATKIN_IGNORE](https://github.com/mfocchi/universal_robots_ros_driver/blob/master/CATKIN_IGNORE) inside the **ur_driver** package 
+2. Install these additional packages:
 
 ```
 sudo apt install ros-ROS_VERSION-ur-msgs
 ```
 
 ```
+sudo apt install ros-ROS_VERSION-speed-scaling-interfaces
+```
+
+```
 sudo apt install ros-ROS_VERSION-scaled-joint-trajectory-controller
 ```
 
-plus clone the ur_robot_driver package wherever inside the ros_ws/src folder:
+```
+sudo apt install ros-ROS_VERSION-industrial-robots-status-interface
+```
 
 ```
-git clone git@github.com:mfocchi/universal_robots_ros_driver.git
+sudo apt install ros-ROS_VERSION-speed-scaling-state-controller
 ```
+
+```
+sudo apt install ros-ROS_VERSION-ur-client-library
+```
+
+```
+sudo apt install ros-ROS_VERSION-pass-through-controllers
+```
+
+3. recompile with **catkin_make install**.
+
+4. add the following alias to your .bashrc
+
+```
+launch_robot='roslaunch ur_robot_driver ur5e_bringup.launch headless_mode:=true robot_ip:=192.168.0.100 kinematics_config:=$LOCOSIM_DIR/robot_hardware_interfaces/ur_driver/calibration_files/my_robot_calibration_X.yaml'
+```
+
+where X is {1,2}. For the robot with the soft gripper X = 2. If you do not have CUDA installed or you want to test without the ZED camera sensor, append **vision_sensor:=false** to the command.
+
+To use the robot you first need to launch the robot driver, then your **ur5_generic.py** with the real_robot flag set to **True**.
+
+
+
+**Universal Robots  + ZED camera support**
+
+If you are willing to use the real ZED Camera on the real robot, the zed_wrapper package is not compiled by default, hence you need to:
+
+1. remove the file [CATKIN_IGNORE](https://github.com/mfocchi/zed_wrapper/blob/master/CATKIN_IGNORE) in the **zed_wrapper** package 
+
+2. Install the latest version of CUDA: https://developer.nvidia.com/cuda-downloads
+
+3. Install the latest  version (3.8.2) SDK library in: https://www.stereolabs.com/developers/release/
+
+4. Recompile with catkin_make install
+
+If you have issues remove the build/devel folder and recompile.
+
+
 
 #### go1
 
