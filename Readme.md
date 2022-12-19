@@ -410,9 +410,7 @@ launch_robot='roslaunch ur_robot_driver ur5e_bringup.launch headless_mode:=true 
 
 where X is {1,2}. For the robot with the soft gripper X = 2. If you do not have CUDA installed or you want to test without the ZED camera sensor, append **vision_sensor:=false** to the command.
 
-To use the robot you first need to launch the robot driver, then your **ur5_generic.py** with the real_robot flag set to **True**.
-
-
+To use the robot you first need to launch the robot driver, then your **ur5_generic.py** with the  [real_robot](https://github.com/mfocchi/robot_control/blob/2e88a9a1cc8b09753fa18e7ac936514dc1d27b8d/lab_exercises/lab_palopoli/params.py#L30) flag set to **True**.
 
 **Universal Robots  + ZED camera support**
 
