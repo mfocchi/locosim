@@ -47,3 +47,9 @@
 [submodule "robot_hardware_interfaces/go1_hardware_interface"]
 	path = robot_hardware_interfaces/go1_hardware_interface
 	url = git@github.com:mfocchi/go1_hardware_interface.git
+[submodule "robot_hardware_interfaces/ur_driver"]
+	path = robot_hardware_interfaces/ur_driver
+	url = git@github.com:mfocchi/universal_robots_ros_driver.git
+[submodule "robot_hardware_interfaces/zed_wrapper"]
+	path = robot_hardware_interfaces/zed_wrapper
+	url = git@github.com:mfocchi/zed_wrapper.git
