@@ -377,7 +377,7 @@ sudo apt install ros-ROS_VERSION-ur-msgs
 ```
 
 ```
-sudo apt install ros-ROS_VERSION-speed-scaling-interfaces
+sudo apt install ros-ROS_VERSION-speed-scaling-interface
 ```
 
 ```
