@@ -361,11 +361,11 @@ to exit from python3 console type CTRL+Z
 
 
 
-### Using the real robots: 
+## Using the real robots: 
 
 These packages are needed if you are willing to do experiments with the **real** robots
 
-#### **Universal Robots**
+### **Universal Robot UR5**
 
 The driver for the UR5 has already been included in Locosim but is not compiled by default, hence you need to:
 
@@ -410,13 +410,32 @@ launch_robot='roslaunch ur_robot_driver ur5e_bringup.launch headless_mode:=true 
 
 where X is {1,2}. For the robot with the soft gripper X = 2. If you do not have CUDA installed or you want to test without the ZED camera sensor, append **vision_sensor:=false** to the command.
 
-To use the robot you first need to launch the robot driver, then your **ur5_generic.py** with the  [real_robot](https://github.com/mfocchi/robot_control/blob/2e88a9a1cc8b09753fa18e7ac936514dc1d27b8d/lab_exercises/lab_palopoli/params.py#L30) flag set to **True**.
+5. Set the IP of your machine to 192.168.0.101 (the robot IP will be 192.168.0.100)
+6. Verify that you can ping the robot 
+
+```
+ping 192.168.0.100
+```
+
+To use the robot you first need to launch the robot driver with the **launch_robot** alias, then your **ur5_generic.py** with the  [real_robot](https://github.com/mfocchi/robot_control/blob/2e88a9a1cc8b09753fa18e7ac936514dc1d27b8d/lab_exercises/lab_palopoli/params.py#L30) flag set to **True**.
+
+
+
+**Universal Robots  + Gripper**
+
+You have 2 king of gripper available in the ur5 robot: a rigid 3 finger gripper and a soft 2 finger gripper.  Locosim seamlessly allows you to deal with both of them. By default, the 3 finger gripper is enabled, if you want to use the 2 finger one (soft_gripper)  you need to:
+
+1. set the  [soft_gripper](https://github.com/mfocchi/robot_control/blob/fde3b27884819e1b2ea319fe5b2781a86d33a648/lab_exercises/lab_palopoli/params.py#L33) flag to True (in Simulation)
+
+2. append **soft_gripper:=true** to the  **launch_robot** alias (on the real robot).
+
+   
 
 **Universal Robots  + ZED camera support**
 
 If you are willing to use the real ZED Camera on the real robot, the zed_wrapper package is not compiled by default, hence you need to:
 
-1. remove the file [CATKIN_IGNORE](https://github.com/mfocchi/zed_wrapper/blob/master/CATKIN_IGNORE) in the **zed_wrapper** package 
+1. remove the file in the **zed_wrapper** package 
 
 2. Install the latest version of CUDA: https://developer.nvidia.com/cuda-downloads
 
@@ -428,7 +447,7 @@ If you have issues remove the build/devel folder and recompile.
 
 
 
-#### go1
+### Go1 Quadruped Robot
 
 ```
 sudo apt-get install apt-get install liblcms2-2
@@ -437,6 +456,8 @@ sudo apt-get install apt-get install liblcms2-2
 ```
 sudo apt-get install apt-get install liblcms-bin
 ```
+
+and follow this [wiki](https://github.com/mfocchi/locosim/blob/develop/go1_setup.md)!
 
 
 
