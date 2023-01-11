@@ -419,6 +419,12 @@ ping 192.168.0.100
 
 To use the robot you first need to launch the robot driver with the **launch_robot** alias, then your **ur5_generic.py** with the  [real_robot](https://github.com/mfocchi/robot_control/blob/2e88a9a1cc8b09753fa18e7ac936514dc1d27b8d/lab_exercises/lab_palopoli/params.py#L30) flag set to **True**.
 
+Conversely, if you want to launch only the ZED camera alone and see the data in rviz:
+
+```
+roslaunch zed_wrapper zed2.launch rviz:=true
+```
+
 
 
 **Universal Robots  + Gripper**
