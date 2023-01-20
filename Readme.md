@@ -370,7 +370,8 @@ These packages are needed if you are willing to do experiments with the **real**
 The driver for the UR5 has already been included in Locosim but is not compiled by default, hence you need to:
 
 1. remove file [CATKIN_IGNORE](https://github.com/mfocchi/universal_robots_ros_driver/blob/master/CATKIN_IGNORE) inside the **ur_driver** package 
-2. Install these additional packages:
+2. remove file [CATKIN_IGNORE]( https://github.com/mfocchi/zed_wrapper/blob/af3750a31c1933d4f25b0cb9d5fc4de657d62001/CATKIN_IGNORE) inside the **zed_wrapper** package 
+3. Install these additional packages:
 
 ```
 sudo apt install ros-ROS_VERSION-ur-msgs
@@ -400,9 +401,9 @@ sudo apt install ros-ROS_VERSION-ur-client-library
 sudo apt install ros-ROS_VERSION-pass-through-controllers
 ```
 
-3. recompile with **catkin_make install**.
+4. recompile with **catkin_make install**.
 
-4. add the following alias to your .bashrc
+5. add the following alias to your .bashrc
 
 ```
 launch_robot='roslaunch ur_robot_driver ur5e_bringup.launch headless_mode:=true robot_ip:=192.168.0.100 kinematics_config:=$LOCOSIM_DIR/robot_hardware_interfaces/ur_driver/calibration_files/my_robot_calibration_X.yaml'
@@ -410,8 +411,9 @@ launch_robot='roslaunch ur_robot_driver ur5e_bringup.launch headless_mode:=true 
 
 where X is {1,2}. For the robot with the soft gripper X = 2. If you do not have CUDA installed or you want to test without the ZED camera sensor, append **vision_sensor:=false** to the command.
 
-5. Set the IP of your machine to 192.168.0.101 (the robot IP will be 192.168.0.100)
-6. Verify that you can ping the robot 
+6. Set the IP of your machine to 192.168.0.101 (the robot IP will be 192.168.0.100)
+
+7. Verify that you can ping the robot 
 
 ```
 ping 192.168.0.100
