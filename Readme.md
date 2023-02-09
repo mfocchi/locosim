@@ -443,7 +443,7 @@ You have 2 king of gripper available in the ur5 robot: a rigid 3 finger gripper 
 
 If you are willing to use the real ZED Camera on the real robot, the zed_wrapper package is not compiled by default, hence you need to:
 
-1. remove the file in the **zed_wrapper** package 
+1. remove the file [CATKIN_IGNORE]( https://github.com/mfocchi/zed_wrapper/blob/af3750a31c1933d4f25b0cb9d5fc4de657d62001/CATKIN_IGNORE)  in the **zed_wrapper** package 
 
 2. Install the latest version of CUDA: https://developer.nvidia.com/cuda-downloads
 
