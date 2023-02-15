@@ -2,15 +2,15 @@
 
 # What is Locosim?
 
-Locosim is  didactic framework to learn/test basic controllers schemes on quadrupeds (HyQ/Solo/Aliengo/Go1 robots are supported) and manipulators (UR5 robot is supported). Locosim has been successfully tested on Ur5, Aliengo and Go1 robots and to my knowledge is the first Easy-to-Use interface to the new Unitree Quadruped robot Go1. If you just bought one Go1 robot and you want to give a try, follow this [wiki](https://github.com/mfocchi/locosim/blob/develop/go1_setup.md)!
+Locosim is a didactic framework to learn/test basic controllers schemes on quadruped robots (HyQ/Solo/Aliengo/Go1 are supported) and manipulators (UR5  is supported). Locosim has been successfully tested on Ur5, Aliengo and Go1 robots and (to my knowledge) is the first Open-Source Easy-to-Use interface to the new Unitree Quadruped robot Go1. If you just bought a Go1 robot and you want to give a try, follow this [wiki](https://github.com/mfocchi/locosim/blob/develop/go1_setup.md)!
 
-Locosim is composed by a **roscontrol** node called **ros_impedance_controller** (written in C++) that interfaces the python ros node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For each controller, plotting / logging utilities are available to evaluate the results together with a configuration file (LX_conf.py) to change the controller parameters. 
+Locosim is composed by a **roscontrol** node called **ros_impedance_controller** (written in C++) that interfaces a python ROS node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For each controller, plotting / logging utilities are available to evaluate the results together with a configuration file (LX_conf.py) to change the controller parameters. 
 
-You have 3 ways to install Locosim code with all its dependencies: 1) with a virtual machine 2) with docker 3) by manual installation of dependencies.
+You have 3 ways to install the Locosim code with all its dependencies: 1) with a virtual machine 2) with docker 3) by manual installation of dependencies.
 
 # Usage with a Virtual Machine
 
-First install the free software VMWare Player (the "player" keyword is for free personal use in the VMware software). For Linux / Windows system you can find it  [here](https://www.vmware.com/it/products/workstation-player/workstation-player-evaluation.html) for MAC  [here](https://customerconnect.vmware.com/en/evalcenter?p=fusion-player-personal-13) (you need to create an account I am sorry).
+First install the free software VMWare Player (the "player" keyword is for free personal use in the VMware software). For Linux / Windows system you can find it  [here](https://www.vmware.com/it/products/workstation-player/workstation-player-evaluation.html) for MAC  [here](https://customerconnect.vmware.com/en/evalcenter?p=fusion-player-personal-13) (you need to create an account, I am sorry...).
 
 Then, download the following [virtual machine](https://www.dropbox.com/scl/fo/tjwfcjwnenqgtsakohdfy/h?dl=0&rlkey=lg1fdkn6k0thveg4efuwoh3kn) and run the file **VM ROBO.vmx** to open it. You  will have now a fully working Ubuntu 20 system with all the needed dependencies, code and Pycharm IDE already installed.  The lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. 
 
