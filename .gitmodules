@@ -53,3 +53,6 @@
 [submodule "robot_hardware_interfaces/zed_wrapper"]
 	path = robot_hardware_interfaces/zed_wrapper
 	url = git@github.com:mfocchi/zed_wrapper.git
+[submodule "landing_controller"]
+	path = landing_controller
+	url = git@github.com:mfocchi/landing_controller.git
