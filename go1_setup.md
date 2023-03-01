@@ -51,3 +51,5 @@ L1+L2+Start
 ```
 
 Enters in external user command mode
+
+Wait for the white lights on the robot face (10 secs approx.) before running your codes.
