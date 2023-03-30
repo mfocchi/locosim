@@ -2,7 +2,7 @@
 
 # What is Locosim?
 
-Locosim is a didactic framework to learn/test basic controllers schemes on quadruped robots (HyQ/Solo/Aliengo/Go1 are supported) and manipulators (UR5  is supported). Locosim has been successfully tested on Ur5, Aliengo and Go1 robots and (to my knowledge) is the first Open-Source Easy-to-Use interface to the new Unitree Quadruped robot Go1. If you just bought a Go1 robot and you want to give a try, follow this [wiki](https://github.com/mfocchi/locosim/blob/develop/go1_setup.md)!
+Locosim is a didactic framework to learn/test basic controllers schemes on quadruped robots (HyQ/Solo/Aliengo/Go1 are supported) and manipulators (UR5  is supported). Locosim has been successfully tested on Ur5, Aliengo and Go1 robots and (to my knowledge) is the first Open-Source Easy-to-Use interface to the new Unitree Quadruped robot Go1. If you just bought a Go1 robot and you want to give a try, follow this [wiki](https://github.com/mfocchi/locosim/blob/develop/figs/go1_setup.md)!
 
 Locosim is composed by a **roscontrol** node called **ros_impedance_controller** (written in C++) that interfaces a python ROS node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For each controller, plotting / logging utilities are available to evaluate the results together with a configuration file (LX_conf.py) to change the controller parameters. 
 
@@ -276,7 +276,7 @@ Finally, run (you should do it any time you add a new ros package)
  rospack profile
 ```
 
-There are some additional utilities that I strongly suggest to install. You can find the list  [here](https://github.com/mfocchi/locosim/blob/develop/utils.md).
+There are some additional utilities that I strongly suggest to install. You can find the list  [here](https://github.com/mfocchi/locosim/blob/develop/figs/utils.md).
 
 
 
@@ -435,6 +435,8 @@ where X is {1,2}. For the robot with the soft gripper X = 2.
    ```
 
 9. Run the **ur5_generic.py** with the  [real_robot](https://github.com/mfocchi/robot_control/blob/2e88a9a1cc8b09753fa18e7ac936514dc1d27b8d/lab_exercises/lab_palopoli/params.py#L30) flag set to **True**. The robot will move to the home configuration defined  [here](https://github.com/mfocchi/robot_control/blob/babb5ff9ad09fec32c7ceaeef3d02715c6d067ab/lab_exercises/lab_palopoli/params.py#L26).
+
+10. For the usage and calibration of the ZED camera follow this instructions [here](https://github.com/mfocchi/locosim/blob/develop/figs/zed_calibration.md).
 
 
 
