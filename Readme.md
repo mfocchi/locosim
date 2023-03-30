@@ -10,7 +10,7 @@ You have 3 ways to install the Locosim code with all its dependencies: 1) with a
 
 # Usage with a Virtual Machine
 
-First install the free software VMWare Player (the "player" keyword is for free personal use in the VMware software). For Linux / Windows system you can find it  [here](https://www.vmware.com/it/products/workstation-player/workstation-player-evaluation.html) for MAC  [here](https://customerconnect.vmware.com/en/evalcenter?p=fusion-player-personal-13) (you need to create an account, I am sorry...).
+First install the free version (16.0) of the software VMWare Player (the "player" keyword is for free personal use in the VMware software). For Linux / Windows system you can find it  [here](https://www.vmware.com/products/workstation-player.html) for MAC  [here](https://customerconnect.vmware.com/en/evalcenter?p=fusion-player-personal-13) (you need to create an account, I am sorry...).
 
 Then, download the following [virtual machine](https://www.dropbox.com/scl/fo/tjwfcjwnenqgtsakohdfy/h?dl=0&rlkey=lg1fdkn6k0thveg4efuwoh3kn) and run the file **VM ROBO.vmx** to open it. You  will have now a fully working Ubuntu 20 system with all the needed dependencies, code and Pycharm IDE already installed.  The lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. 
 
@@ -402,36 +402,45 @@ sudo apt install ros-ROS_VERSION-pass-through-controllers
 ```
 
 4. recompile with **catkin_make install**.
-
 5. add the following alias to your .bashrc
 
 ```
 launch_robot='roslaunch ur_robot_driver ur5e_bringup.launch headless_mode:=true robot_ip:=192.168.0.100 kinematics_config:=$LOCOSIM_DIR/robot_hardware_interfaces/ur_driver/calibration_files/my_robot_calibration_X.yaml'
 ```
 
-where X is {1,2}. For the robot with the soft gripper X = 2. If you do not have CUDA installed or you want to test without the ZED camera sensor, append **vision_sensor:=false** to the command.
+where X is {1,2}. For the robot with the soft gripper X = 2. 
 
-6. Set the IP of your machine to 192.168.0.101 (the robot IP will be 192.168.0.100)
+4. Trigger the robot workbench power switch on  and press the on button on the UR5 Teach Pendant
 
-7. Verify that you can ping the robot 
+5. Connect the Ethernet cable to the lab laptop and create a local LAN network where you set the IP of your machine to 192.168.0.101 (the robot IP will be 192.168.0.100, double check it using the UR5 "Teach Pendant")
 
-```
-ping 192.168.0.100
-```
+6. Verify that you can ping the robot:
 
-To use the robot you first need to launch the robot driver with the **launch_robot** alias, then your **ur5_generic.py** with the  [real_robot](https://github.com/mfocchi/robot_control/blob/2e88a9a1cc8b09753fa18e7ac936514dc1d27b8d/lab_exercises/lab_palopoli/params.py#L30) flag set to **True**.
+   ```
+   ping 192.168.0.100
+   ```
 
-Conversely, if you want to launch only the ZED camera alone and see the data in rviz:
+7. Where it says "Spegnimento" activate the robot pressing "Avvio" twice untill you see all the 5 green lights and you hear the release of the brakes. Set the "Remote Control" in the upper right corner of the "Teach Pendant"
 
-```
-roslaunch zed_wrapper zed2.launch rviz:=true
-```
+8. Run the **launch_robot** alias to start the **ur_driver**. If you want to start the driver without the ZED camera (e.g. you do not have CUDA installed), append **vision_sensor:=false** to the command. 
+
+   ```
+   launch_robot viswion_sensor:=false
+   ```
+
+   Conversely, if you want to launch only the ZED camera alone and see the data in rviz:
+
+   ```
+   roslaunch zed_wrapper zed2.launch rviz:=true
+   ```
+
+9. Run the **ur5_generic.py** with the  [real_robot](https://github.com/mfocchi/robot_control/blob/2e88a9a1cc8b09753fa18e7ac936514dc1d27b8d/lab_exercises/lab_palopoli/params.py#L30) flag set to **True**. The robot will move to the home configuration defined  [here](https://github.com/mfocchi/robot_control/blob/babb5ff9ad09fec32c7ceaeef3d02715c6d067ab/lab_exercises/lab_palopoli/params.py#L26).
 
 
 
 **Universal Robots  + Gripper**
 
-You have 2 king of gripper available in the ur5 robot: a rigid 3 finger gripper and a soft 2 finger gripper.  Locosim seamlessly allows you to deal with both of them. By default, the 3 finger gripper is enabled, if you want to use the 2 finger one (soft_gripper)  you need to:
+You have 2 kind of gripper available in the ur5 robot: a rigid 3 finger gripper and a soft 2 finger gripper.  Locosim seamlessly allows you to deal with both of them. By default, the 3 finger gripper is enabled, if you want to use the 2 finger one (soft_gripper)  you need to:
 
 1. set the  [soft_gripper](https://github.com/mfocchi/robot_control/blob/fde3b27884819e1b2ea319fe5b2781a86d33a648/lab_exercises/lab_palopoli/params.py#L33) flag to True (in Simulation)
 
