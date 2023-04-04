@@ -53,3 +53,6 @@
 [submodule "robot_hardware_interfaces/zed_wrapper"]
 	path = robot_hardware_interfaces/zed_wrapper
 	url = git@github.com:mfocchi/zed_wrapper.git
+[submodule "robot_descriptions/tractor_description"]
+	path = robot_descriptions/tractor_description
+	url = git@github.com:mfocchi/tractor_description.git
