@@ -456,9 +456,9 @@ If you are willing to use the real ZED Camera on the real robot, the zed_wrapper
 
 1. remove the file [CATKIN_IGNORE]( https://github.com/mfocchi/zed_wrapper/blob/af3750a31c1933d4f25b0cb9d5fc4de657d62001/CATKIN_IGNORE)  in the **zed_wrapper** package 
 
-2. Install the latest version of CUDA: https://developer.nvidia.com/cuda-downloads
+2. Install CUDA (locosim is compatible only with version 12): https://developer.nvidia.com/cuda-downloads
 
-3. Install the latest  version (3.8.2) SDK library in: https://www.stereolabs.com/developers/release/
+3. Install the  SDK library (locosim is compatible only with version 4.0.2) in: https://www.stereolabs.com/developers/release/
 
 4. Recompile with catkin_make install
 
