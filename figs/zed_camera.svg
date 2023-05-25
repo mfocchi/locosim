@@ -674,9 +674,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="1711.2848"
-     inkscape:cy="532.21271"
+     inkscape:zoom="1.4"
+     inkscape:cx="424.86115"
+     inkscape:cy="300.24775"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -869,15 +869,15 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.23190641px;line-height:75.09999871%;font-family:'Bliss Pro';-inkscape-font-specification:'Bliss Pro';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="184.26892"
-       y="91.838379"
+       x="193.54054"
+       y="92.208191"
        id="text11152"
        transform="scale(0.97840763,1.0220689)"><tspan
          sodipodi:role="line"
          id="tspan11150"
-         x="184.26892"
-         y="91.838379"
-         style="stroke-width:0.26458332px">u,v = (960, 540)</tspan></text>
+         x="193.54054"
+         y="92.208191"
+         style="stroke-width:0.26458332px">u,v = (1918, 1078)</tspan></text>
     <path
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#020000;fill-opacity:1;fill-rule:evenodd;stroke:#040404;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:url(#Arrow2Mstart);marker-end:url(#marker11496);paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        d="m 117.93496,33.172619 64.99912,0.188987"
@@ -1071,7 +1071,7 @@
          id="tspan14767"
          x="135.33813"
          y="31.483074"
-         style="stroke-width:0.26458332px">960</tspan></text>
+         style="stroke-width:0.26458332px">1920</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66880703px;line-height:75.09999871%;font-family:'Bliss Pro';-inkscape-font-specification:'Bliss Pro';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1083,7 +1083,7 @@
          id="tspan14767-7"
          x="189.20508"
          y="75.549942"
-         style="stroke-width:0.26458332px">540</tspan></text>
+         style="stroke-width:0.26458332px">1080</tspan></text>
     <path
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:0.38900003;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#040404;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.40000003, 0.80000002;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-end:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        d="m 117.36161,28.920388 v 18.52083"
