@@ -412,7 +412,7 @@ where X is {1,2}. For the robot with the soft gripper X = 2.
 
 4. Trigger the robot workbench power switch on  and press the on button on the UR5 Teach Pendant
 
-5. Connect the Ethernet cable to the lab laptop and create a local LAN network where you set the IP of your machine to 192.168.0.101 (the robot IP will be 192.168.0.100, double check it using the UR5 "Teach Pendant")
+5. Connect the Ethernet cable to the lab laptop and create a local LAN network where you set the IP of your machine to 192.168.0.101 (the robot IP will be 192.168.0.100, double check it using the UR5 "Teach Pendant"), see [network settings](https://github.com/mfocchi/locosim/blob/develop/network_settings.md) to setup the network in order to run together with a mobile platform.
 
 6. Verify that you can ping the robot:
 
@@ -420,12 +420,12 @@ where X is {1,2}. For the robot with the soft gripper X = 2.
    ping 192.168.0.100
    ```
 
-7. Where it says "Spegnimento" activate the robot pressing "Avvio" twice untill you see all the 5 green lights and you hear the release of the brakes. Set the "Remote Control" in the upper right corner of the "Teach Pendant"
+7. Where it says "Spegnimento" activate the robot pressing "Avvio" twice until you see all the 5 green lights and you hear the release of the brakes. Set the "Remote Control" in the upper right corner of the "Teach Pendant"
 
 8. Run the **launch_robot** alias to start the **ur_driver**. If you want to start the driver without the ZED camera (e.g. you do not have CUDA installed), append **vision_sensor:=false** to the command. 
 
    ```
-   launch_robot viswion_sensor:=false
+   launch_robot vision_sensor:=false
    ```
 
    Conversely, if you want to launch only the ZED camera alone and see the data in rviz:
