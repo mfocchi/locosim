@@ -32,15 +32,15 @@ You can alternatively use a docker image with Ubuntu 20 and all the required dep
 
 Locosim is compatible with Ubuntu 16/18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
 
-| **Ubuntu 16**:               | Ubuntu 18:                   | **Ubuntu 20**:               |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| PYTHON_PREFIX = python       | PYTHON_PREFIX = python3      | PYTHON_PREFIX = python3      |
-| PYTHON_VERSION = 2.7         | PYTHON_VERSION = 3.5         | PYTHON_VERSION = 3.8         |
-| ROBOTPKG_PYTHON_VERSION=py27 | ROBOTPKG_PYTHON_VERSION=py35 | ROBOTPKG_PYTHON_VERSION=py38 |
-| PIP_PREFIX = pip             | PIP_PREFIX = pip3            | PIP_PREFIX = pip3            |
-| ROS_VERSION = kinetic        | ROS_VERSION = bionic         | ROS_VERSION = noetic         |
+| Ubuntu 18:                   | **Ubuntu 20**:               |
+| ---------------------------- | ---------------------------- |
+| PYTHON_PREFIX = python3      | PYTHON_PREFIX = python3      |
+| PYTHON_VERSION = 3.5         | PYTHON_VERSION = 3.8         |
+| ROBOTPKG_PYTHON_VERSION=py35 | ROBOTPKG_PYTHON_VERSION=py38 |
+| PIP_PREFIX = pip3            | PIP_PREFIX = pip3            |
+| ROS_VERSION = bionic         | ROS_VERSION = noetic         |
 
-**NOTE:** ROS is no longer supported (only ROS2) on Ubuntu 22 hence is not possible to install Locosim on Ubuntu 22.
+**NOTE:** ROS is no longer supported (only ROS2 Humble) on Ubuntu 22 hence is not possible to install Locosim on Ubuntu 22.
 
 ### Install ROS 
 
