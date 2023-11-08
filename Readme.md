@@ -6,31 +6,43 @@ Locosim is a didactic framework to learn/test basic controllers schemes on quadr
 
 Locosim is composed by a **roscontrol** node called **ros_impedance_controller** (written in C++) that interfaces a python ROS node (where the controller is written) to a Gazebo simulator. All the didactic labs have a description, with exercises of increasing complexity, in the folder **lab_descriptions** inside robot_control submodule. For each controller, plotting / logging utilities are available to evaluate the results together with a configuration file (LX_conf.py) to change the controller parameters. 
 
-You have 3 ways to install the Locosim code with all its dependencies: 1) with a virtual machine 2) with docker 3) by manual installation of dependencies.
+You have 3 ways to get the Locosim code: 1) with a virtual machine 2) with docker 3) by manual installation of dependencies.
 
 # Usage with a Virtual Machine
 
 First install the free version (16.0) of the software VMWare Player (the "player" keyword is for free personal use in the VMware software). For Linux / Windows system you can find it  [here](https://www.vmware.com/products/workstation-player.html) for MAC  [here](https://customerconnect.vmware.com/en/evalcenter?p=fusion-player-personal-13) (you need to create an account, I am sorry...).
 
-Then, download the following [virtual machine](https://www.dropbox.com/scl/fo/tjwfcjwnenqgtsakohdfy/h?dl=0&rlkey=lg1fdkn6k0thveg4efuwoh3kn) and run the file **VM ROBO.vmx** to open it. You  will have now a fully working Ubuntu 20 system with all the needed dependencies, code and Pycharm IDE already installed.  The lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. 
+Then, download the following [virtual machine](https://www.dropbox.com/scl/fo/tjwfcjwnenqgtsakohdfy/h?dl=0&rlkey=lg1fdkn6k0thveg4efuwoh3kn) and run the file **VM ROBO.vmx** to open it. You  will have now a fully working Ubuntu 20 system with all the needed dependencies, code and Pycharm IDE already installed. Check README.txt for the password. The lab experiments that are present in: **robot_control/lab_exercises** you can find a detailed description of them in **robot_control/lab_exercises/lab_descriptions**. 
 
 **IMPORTANT NOTE!** To be able to update the submodules you need to generate you SSH key inside the virtual machine a store it in your Github account as explained  [here](https://github.com/mfocchi/lab-docker/blob/master/install_docker.md#installing-git-and-ssh-key).
 
-**COMPATIBILITY ISSUES:** This virtual machine works with x86-64 processors, but not for new MAC M1/M2 that employ ARM  processors, the only solution is to install a  [parallel/multipass](https://github.com/mfocchi/lab-docker/blob/master/multipass.md) virtual machine and install natively all the [dependencies](https://github.com/mfocchi/locosim#native-installation-on-linux)  inside there. Remember that on MAC you need to replace "sudo apt  install package_name" with "brew install package_name". The easiest way is to follow a detailed wiki [here](https://github.com/NatFederico/roboticsVM), made by Federico Natali.
+**COMPATIBILITY ISSUES:** This virtual machine works with x86-64 processors, but not for new MAC M1/M2 that employ ARM  processors.
 
 
 
 # Usage with Docker
 
-You can alternatively use a docker image with Ubuntu 20 and all the required dependencies already installed (you will need only to clone the code and compile it), by following this  [wiki](https://github.com/mfocchi/lab-docker). Docker has been tested to work with windows machines, Linux and old MACs (not ARM processors). 
+You can alternatively use a docker image that contains Ubuntu 20 and all the required dependencies already installed (you will need only to clone the code and compile it) by following this  [wiki](https://github.com/mfocchi/lab-docker). 
+
+**WINDOWS:** follow this procedure: https://github.com/mfocchi/lab-docker/blob/master/install_docker_windows.md
+
+**MAC:** follow this  [wiki](https://github.com/mfocchi/lab-docker), just replace **"sudo apt install package_name"** with **"brew install package_name"**.
+
+**LINUX:** follow this  [wiki](https://github.com/mfocchi/lab-docker). 
+
+# Native Installation 
+
+**WINDOWS:** Install Ubuntu 20.4.06 LTS  following this procedure: https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview
+
+**MAC:** follow the next procedure, just replace **"sudo apt install package_name"** with **"brew install package_name"**.
+
+**LINUX:** follow the next procedure.
 
 
-
-# Native Installation on LINUX
 
 ### SOFTWARE VERSIONS:
 
-Locosim is compatible with Ubuntu 16/18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
+Locosim is compatible with Ubuntu 18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
 
 | Ubuntu 18:                   | **Ubuntu 20**:               |
 | ---------------------------- | ---------------------------- |
