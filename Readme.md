@@ -30,9 +30,19 @@ You can alternatively use a docker image that contains Ubuntu 20 and all the req
 
 **LINUX:** follow this  [wiki](https://github.com/mfocchi/lab-docker). 
 
+
+
 # Native Installation 
 
 **WINDOWS:** Install Ubuntu 20.4.06 LTS  following this procedure: https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview
+
+If you experiment any issue in using the Nvidia with  OpenGL rendering (the symptom is that you cannot visualize STL meshes in RVIZ) then you should update to the latest mesa-driver:
+
+```
+sudo add-apt-repository ppa:kisak/kisak-mesa
+sudo apt update
+sudo apt upgrade
+```
 
 **MAC:** follow the next procedure, just replace **"sudo apt install package_name"** with **"brew install package_name"**.
 
@@ -40,7 +50,7 @@ You can alternatively use a docker image that contains Ubuntu 20 and all the req
 
 
 
-### SOFTWARE VERSIONS:
+### UBUNTU VERSIONS:
 
 Locosim is compatible with Ubuntu 18/20. The installation instructions have been generalized accordingly. You need replace four strings (PYTHON_PREFIX, PYTHON_VERSION, PIP_PREFIX, ROS_VERSION) with the appropriate values according to your operating systems as follows:
 
@@ -337,27 +347,37 @@ source .bashrc
 
 ### **Running the software** from Python IDE: Pycharm  
 
-We recommend to use an IDE to run and edit the python files, like Pycharm community. To install it,  you just need to download and unzip the program:
+Now that you compiled the code you are ready to run the software! 
 
-https://download.jetbrains.com/python/pycharm-community-2021.1.1.tar.gz
+We recommend to use an IDE to run and edit the python files, like Pycharm community. 
+
+1. To install it, enter in the $HOME folder of the docker and download it from here:
+
+```
+$ wget https://download.jetbrains.com/python/pycharm-community-2021.1.1.tar.gz
+```
+
+2. Then, unzip the program:
+
+```
+$tar -xf pycharm-community-2021.1.1.tar.gz
+```
 
  and unzip it  *inside* the docker (e.g. copy it inside the `~/trento_lab_home` folder. 
 
-**IMPORTANT**! I ask you to download this specific version (2021.1.1) that I am sure it works, because the newer ones seem to be failing to load environment variables! 
+**IMPORTANT**!** I ask you to download this specific version (2021.1.1) that I am sure it works, because the newer ones seem to be failing to load environment variables! 
 
-1) To run Pycharm community type (if you are lazy you can create an alias...): 
+3. To run Pycharm community type (if you are lazy you can create an alias...): 
 
 ```
-$ pycharm_folder/bin/pycharm.sh
+$ pycharm-community-2021.1.1/bin/pycharm.sh
 ```
 
-2) remember to run **pycharm-community** from the terminal otherwise it does not load the environment variables loaded inside the .bashrc.
+Running pycharm from the terminal enables to use the environment variables loaded inside the .bashrc.
 
-3) click "Open File or Project" and open the folder robot_control. Then launch one of the labs in locosim/robot_control/lab_exercises or in locosim/robot_control/base_controllers  (e.g. base_controller_fixed.py)  right click on the code and selecting "Run File in Pyhton Console"
+4. click "Open File or Project" and open the folder robot_control. Then launch one of the labs in locosim/robot_control/lab_exercises or in locosim/robot_control/base_controllers  (e.g. ur5_generic.py)  right click on the code and selecting "Run File in Pyhton Console"
 
-4) the first time you run the code you will be suggested to select the appropriate interpreter (/usr/binpython3.8). Following this procedure you will be sure that the run setting will be stored, next time that you start Pycharm.
-
-**IMPORTANT!** To be able to keep the plots **alive** at the end of the program and to have access to variables,  you need to "Edit Configurations..." and tick "Run with Python Console". Otherwise the plot will immediately close. 
+5. the first time you run the code you will be suggested to select the appropriate interpreter (/usr/binpython3.8). Following this procedure you will be sure that the run setting will be stored, next time that you start Pycharm.
 
 
 
