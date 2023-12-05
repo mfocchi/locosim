@@ -41,7 +41,7 @@ If you experiment any issue in using the Nvidia with  OpenGL rendering (the symp
 ```
 sudo add-apt-repository ppa:kisak/kisak-mesa
 sudo apt update
-sudo apt upgrade
+sudo apt install mesa-utils
 ```
 
 **MAC:** follow the next procedure, just replace **"sudo apt install package_name"** with **"brew install package_name"**.
