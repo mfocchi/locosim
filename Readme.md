@@ -541,3 +541,11 @@ a dirty hack to fix it is to clone this repository in your workspace:
 git clone --branch throttle-tf-repeated-data-error git@github.com:BadgerTechnologies/geometry2.git
 ```
 
+Note: you need a specific version of setuptools to be able to succesfully install the repo
+
+```
+pip3 install setuptools==45.2.0
+```
+
+
+
