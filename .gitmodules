@@ -56,3 +56,6 @@
 [submodule "robot_descriptions/tractor_description"]
 	path = robot_descriptions/tractor_description
 	url = git@github.com:mfocchi/tractor_description.git
+[submodule "robot_descriptions/z1_description"]
+	path = robot_descriptions/z1_description
+	url = git@github.com:mfocchi/z1_description.git
