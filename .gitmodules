@@ -62,3 +62,6 @@
 [submodule "landing_controller"]
 	path = landing_controller
 	url = git@github.com:mfocchi/landing_controller.git
+[submodule "robot_descriptions/go2_description"]
+	path = robot_descriptions/go2_description
+	url = git@github.com:mfocchi/go2_description.git
