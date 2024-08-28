@@ -62,3 +62,6 @@
 [submodule "robot_descriptions/mantis_description"]
 	path = robot_descriptions/mantis_description
 	url = git@git.core.funkflow.com:mobilerobotics/mantis-description.git
+[submodule "robot_descriptions/go2_description"]
+	path = robot_descriptions/go2_description
+	url = git@github.com:mfocchi/go2_description.git
