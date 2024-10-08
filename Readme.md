@@ -8,6 +8,12 @@ Locosim is composed by a **roscontrol** node called **ros_impedance_controller**
 
 You have 3 ways to get the Locosim code: 1) with a virtual machine 2) with docker 3) by manual installation of dependencies.
 
+**Note**: If you intend to use Locosim for your *research* please cite:
+
+- M. Focchi, F. Roscia, C. Semini, **Locosim: an Open-Source Cross-Platform Robotics Framework**, Synergetic Cooperation between Robots and Humans. CLAWAR, 2023.  
+
+  you can download a pre-print of the paper [here](https://iit-dlslab.github.io/papers/focchi23clawar.pdf). [View BibTeX](https://github.com/mfocchi/locosim/blob/develop/locosim.bib)
+
 # Usage with a Virtual Machine
 
 First install the free version (16.0) of the software VMWare Player (the "player" keyword is for free personal use in the VMware software). For Linux / Windows system you can find it  [here](https://www.vmware.com/products/workstation-player.html) for MAC  [here](https://customerconnect.vmware.com/en/evalcenter?p=fusion-player-personal-13) (you need to create an account, I am sorry...).
