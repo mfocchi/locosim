@@ -9,7 +9,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 
 RUN apt-get update && apt-get install -y \ 
-	ros-noetic-imu-tools 
+	ros-noetic-imu-tools  \
+	ros-noetic-joy
 
 
 RUN python3 -m pip install --upgrade pip setuptools wheel && \
